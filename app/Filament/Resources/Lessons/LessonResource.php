@@ -18,7 +18,7 @@ class LessonResource extends Resource
 {
     protected static ?string $model = Lesson::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::BookOpen;
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -37,6 +37,10 @@ class LessonResource extends Resource
         return [
             //
         ];
+    }
+    public static function getNavigationSort(): int
+    {
+        return 3;
     }
 
     public static function getPages(): array

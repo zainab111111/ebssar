@@ -18,7 +18,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::User;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -37,6 +37,10 @@ class UserResource extends Resource
         return [
             //
         ];
+    }
+    public static function getNavigationSort(): int
+    {
+        return 1;
     }
 
     public static function getPages(): array

@@ -37,6 +37,11 @@ class UserCourseResource extends Resource
         ];
     }
 
+    public static function getNavigationSort(): int
+    {
+        return 4;
+    }
+
     public static function getPages(): array
     {
         return [
