@@ -24,10 +24,10 @@ const props = defineProps<{
 const isOpen = ref(false);
 
 const pages = [
-    { name: 'Features', href: '#features' },
-    { name: 'Stories', href: '#stories' },
-    { name: 'Accessibility', href: '#accessibility' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'الميزات', href: '#features' },
+    { name: 'القصص', href: '#stories' },
+    { name: 'إمكانية الوصول', href: '#accessibility' },
+    { name: 'اتصل بنا', href: '#contact' },
 ];
 
 // Default get started handler
@@ -43,6 +43,7 @@ const speakText = (text: string) => {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 0.8;
         utterance.volume = 0.8;
+        utterance.lang = 'ar-SA'; // Arabic language
         speechSynthesis.speak(utterance);
     }
 };
@@ -59,64 +60,64 @@ const handleKeyDown = (event: KeyboardEvent) => {
 const features = [
     {
         icon: Eye,
-        title: 'Visual Accessibility',
-        description: 'High contrast themes, customizable font sizes, and screen reader optimization for visually impaired learners.',
-        ariaLabel: 'Visual accessibility features including high contrast and screen reader support',
+        title: 'إمكانية الوصول البصري',
+        description: 'سمات عالية التباين، أحجام خطوط قابلة للتخصيص، وتحسين قارئ الشاشة للمتعلمين ضعاف البصر.',
+        ariaLabel: 'ميزات إمكانية الوصول البصري تشمل التباين العالي ودعم قارئ الشاشة',
     },
     {
         icon: Ear,
-        title: 'Audio Support',
-        description: 'Text-to-speech, audio descriptions, and sign language interpretation for comprehensive audio accessibility.',
-        ariaLabel: 'Audio support features including text-to-speech and sign language interpretation',
+        title: 'الدعم الصوتي',
+        description: 'تحويل النص إلى كلام، أوصاف صوتية، وترجمة لغة الإشارة لإمكانية وصول صوتي شامل.',
+        ariaLabel: 'ميزات الدعم الصوتي تشمل تحويل النص إلى كلام وترجمة لغة الإشارة',
     },
     {
         icon: Hand,
-        title: 'Motor Accessibility',
-        description: 'Keyboard navigation, voice commands, and adaptive input methods for users with motor impairments.',
-        ariaLabel: 'Motor accessibility features including keyboard navigation and voice commands',
+        title: 'إمكانية الوصول الحركي',
+        description: 'التنقل بلوحة المفاتيح، الأوامر الصوتية، وطرق الإدخال التكيفية للمستخدمين ذوي الإعاقات الحركية.',
+        ariaLabel: 'ميزات إمكانية الوصول الحركي تشمل التنقل بلوحة المفاتيح والأوامر الصوتية',
     },
     {
         icon: BookOpen,
-        title: 'Adaptive Learning',
-        description: 'Personalized learning paths that adapt to individual needs and learning preferences.',
-        ariaLabel: 'Adaptive learning features with personalized educational paths',
+        title: 'التعلم التكيفي',
+        description: 'مسارات تعليمية شخصية تتكيف مع الاحتياجات الفردية وتفضيلات التعلم.',
+        ariaLabel: 'ميزات التعلم التكيفي مع مسارات تعليمية شخصية',
     },
     {
         icon: Users,
-        title: 'Collaborative Tools',
-        description: 'Accessible group projects, peer support, and inclusive communication tools.',
-        ariaLabel: 'Collaborative learning tools designed for inclusive group work',
+        title: 'أدوات التعاون',
+        description: 'مشاريع جماعية يمكن الوصول إليها، دعم الأقران، وأدوات تواصل شاملة.',
+        ariaLabel: 'أدوات التعلم التعاوني المصممة للعمل الجماعي الشامل',
     },
     {
         icon: MessageSquare,
-        title: 'Communication',
-        description: 'Multiple communication channels including chat, video calls with captions, and discussion forums.',
-        ariaLabel: 'Communication features with multiple accessible channels',
+        title: 'التواصل',
+        description: 'قنوات تواصل متعددة تشمل الدردشة، مكالمات فيديو مع ترجمة، ومنتديات النقاش.',
+        ariaLabel: 'ميزات التواصل مع قنوات متعددة يمكن الوصول إليها',
     },
 ];
 
 // Stories data
 const stories = [
     {
-        name: 'Sarah Chen',
-        role: 'Computer Science Student',
-        story: "As a blind student, I never thought I could pursue programming. This platform's screen reader compatibility and audio coding tutorials made it possible for me to learn and excel in computer science.",
+        name: 'سارة تشين',
+        role: 'طالبة علوم الحاسوب',
+        story: "كطالبة مكفوفة، لم أعتقد أبداً أنني أستطيع دراسة البرمجة. توافق هذه المنصة مع قارئ الشاشة ودروس البرمجة الصوتية جعل من الممكن لي أن أتعلم وأتفوق في علوم الحاسوب.",
         rating: 5,
-        ariaLabel: 'Success story from Sarah Chen, a blind computer science student',
+        ariaLabel: 'قصة نجاح من سارة تشين، طالبة علوم الحاسوب المكفوفة',
     },
     {
-        name: 'Marcus Rodriguez',
-        role: 'Deaf Education Advocate',
-        story: "The sign language interpretation and visual learning tools have transformed how I access educational content. Finally, a platform that truly understands deaf learners' needs.",
+        name: 'ماركوس رودريغيز',
+        role: 'مدافع عن تعليم الصم',
+        story: "ترجمة لغة الإشارة وأدوات التعلم البصري غيرت طريقة وصولي للمحتوى التعليمي. أخيراً، منصة تفهم حقاً احتياجات المتعلمين الصم.",
         rating: 5,
-        ariaLabel: 'Success story from Marcus Rodriguez, a deaf education advocate',
+        ariaLabel: 'قصة نجاح من ماركوس رودريغيز، مدافع عن تعليم الصم',
     },
     {
-        name: 'Emma Thompson',
-        role: 'Teacher & Parent',
-        story: "My daughter has dyslexia, and this platform's adaptive text features and multi-sensory learning approaches have boosted her confidence and academic performance significantly.",
+        name: 'إيما طومسون',
+        role: 'معلمة وأم',
+        story: "ابنتي تعاني من عسر القراءة، وميزات النص التكيفي لهذه المنصة ونهج التعلم متعدد الحواس عززت ثقتها وأداءها الأكاديمي بشكل كبير.",
         rating: 5,
-        ariaLabel: 'Success story from Emma Thompson, teacher and parent of a child with dyslexia',
+        ariaLabel: 'قصة نجاح من إيما طومسون، معلمة وأم لطفل يعاني من عسر القراءة',
     },
 ];
 
@@ -137,17 +138,23 @@ const submitContact = () => {
 </script>
 
 <template>
-    <Head title="Welcome to Ebssr">
+
+    <Head title="مرحباً بك في إبصار">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap"
+            rel="stylesheet">
     </Head>
 
-    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]">
+    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
+        style="font-family: 'Noto Sans Arabic', sans-serif;">
         <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-between py-4">
                 <!-- Home Icon -->
                 <Link href="/" class="flex items-center">
-                    <HomeIcon class="h-8 w-8 text-primary" />
+                <HomeIcon class="h-8 w-8 text-primary" />
                 </Link>
 
                 <!-- Desktop Navigation -->
@@ -155,7 +162,8 @@ const submitContact = () => {
                     <NavigationMenu>
                         <NavigationMenuList>
                             <NavigationMenuItem v-for="page in pages" :key="page.name">
-                                <NavigationMenuLink :href="page.href" :class="navigationMenuTriggerStyle()" class="text-lg font-medium">
+                                <NavigationMenuLink :href="page.href" :class="navigationMenuTriggerStyle()"
+                                    class="text-lg font-medium">
                                     {{ page.name }}
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
@@ -165,14 +173,14 @@ const submitContact = () => {
                     <!-- Desktop Auth Buttons -->
                     <template v-if="!$page.props.auth.user">
                         <Button as-child variant="ghost" class="text-lg font-medium">
-                            <Link :href="route('login')">Log in</Link>
+                            <Link :href="route('login')">تسجيل الدخول</Link>
                         </Button>
                         <Button as-child class="text-lg font-medium">
-                            <Link :href="route('register')">Register</Link>
+                            <Link :href="route('register')">التسجيل</Link>
                         </Button>
                     </template>
                     <Button v-else as-child class="text-lg font-medium">
-                        <Link :href="route('dashboard')">Dashboard</Link>
+                        <Link :href="route('dashboard')">لوحة التحكم</Link>
                     </Button>
                 </div>
 
@@ -180,31 +188,37 @@ const submitContact = () => {
                 <div class="flex md:hidden">
                     <DropdownMenu v-model:open="isOpen">
                         <DropdownMenuTrigger as-child>
-                            <Button variant="default" size="icon" aria-label="Toggle menu">
-                                <Menu v-if="!isOpen" class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
+                            <Button variant="default" size="icon" aria-label="تبديل القائمة">
+                                <Menu v-if="!isOpen"
+                                    class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
                                 <X v-else class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" class="w-56">
                             <template v-for="page in pages" :key="page.name">
                                 <DropdownMenuItem as-child>
-                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                        {{ page.name }}
+                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium"
+                                        @click="isOpen = false">
+                                    {{ page.name }}
                                     </Link>
                                 </DropdownMenuItem>
                             </template>
 
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('login')" class="w-full justify-center text-lg font-medium" @click="isOpen = false"> Log in </Link>
+                                <Link :href="route('login')" class="w-full justify-center text-lg font-medium"
+                                    @click="isOpen = false">
+                                تسجيل الدخول </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('register')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                    Register
+                                <Link :href="route('register')" class="w-full justify-center text-lg font-medium"
+                                    @click="isOpen = false">
+                                التسجيل
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem v-else as-child>
-                                <Link :href="route('dashboard')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                    Dashboard
+                                <Link :href="route('dashboard')" class="w-full justify-center text-lg font-medium"
+                                    @click="isOpen = false">
+                                لوحة التحكم
                                 </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -214,114 +228,102 @@ const submitContact = () => {
         </header>
 
         <!-- Hero Section -->
-        <section
-            class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16"
-            role="banner"
-            aria-label="Hero section for accessible e-learning platform"
-        >
+        <section class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16" role="banner"
+            aria-label="قسم البطل لمنصة التعلم الإلكتروني المتاحة" dir="rtl">
             <!-- Background pattern for visual interest -->
             <div class="absolute inset-0 bg-card/30" aria-hidden="true"></div>
 
             <div class="relative z-10 mx-auto w-full max-w-6xl">
                 <div class="grid items-center gap-12 lg:grid-cols-2">
                     <!-- Content Section -->
-                    <div class="space-y-8 text-center lg:text-left">
+                    <div class="space-y-8 text-center lg:text-right">
                         <!-- Main Heading -->
                         <div class="space-y-4">
-                            <h1 class="text-4xl leading-tight font-black text-primary md:text-5xl lg:text-6xl" id="main-heading">
-                                Empower Your Learning Journey
+                            <h1 class="text-4xl leading-tight font-black text-primary md:text-5xl lg:text-6xl"
+                                id="main-heading">
+                                اطلق العنان لرحلة التعلم الخاصة بك
                             </h1>
 
                             <!-- Text-to-speech button for main heading -->
-                            <button
-                                @click="() => speakText('Empower Your Learning Journey')"
-                                class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
-                                aria-label="Listen to main heading"
-                                type="button"
-                            >
-                                🔊 Listen to Heading
+                            <button @click="() => speakText('اطلق العنان لرحلة التعلم الخاصة بك')"
+                                class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-4 focus:right-4"
+                                aria-label="استمع للعنوان الرئيسي" type="button">
+                                🔊 استمع للعنوان
                             </button>
                         </div>
 
                         <!-- Subheading -->
                         <div class="space-y-4">
-                            <h2 class="text-xl leading-relaxed font-semibold text-foreground md:text-2xl lg:text-3xl" id="sub-heading">
-                                Accessible Education for All Abilities
+                            <h2 class="text-xl leading-relaxed font-semibold text-foreground md:text-2xl lg:text-3xl"
+                                id="sub-heading">
+                                تعليم متاح لجميع القدرات
                             </h2>
 
                             <!-- Text-to-speech button for subheading -->
-                            <button
-                                @click="() => speakText('Accessible Education for All Abilities')"
-                                class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-16 focus:left-4"
-                                aria-label="Listen to subheading"
-                                type="button"
-                            >
-                                🔊 Listen to Subheading
+                            <button @click="() => speakText('تعليم متاح لجميع القدرات')"
+                                class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-16 focus:right-4"
+                                aria-label="استمع للعنوان الفرعي" type="button">
+                                🔊 استمع للعنوان الفرعي
                             </button>
                         </div>
 
                         <!-- Description -->
                         <p class="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl lg:mx-0">
-                            Experience learning designed with accessibility at its core. Our platform provides comprehensive educational resources
-                            with full screen reader support, high contrast visuals, and adaptive technologies for deaf and blind learners.
+                            اختبر التعلم المصمم مع إمكانية الوصول في جوهره. توفر منصتنا موارد تعليمية شاملة مع دعم كامل
+                            لقارئ
+                            الشاشة، وصور عالية التباين، وتقنيات تكيفية للمتعلمين الصم والمكفوفين.
                         </p>
 
                         <!-- Call to Action -->
                         <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                            <Button
-                                variant="default"
-                                size="lg"
-                                @click="handleGetStarted"
-                                @keydown="handleKeyDown"
+                            <Button variant="default" size="lg" @click="handleGetStarted" @keydown="handleKeyDown"
                                 class="min-h-[44px] min-w-[44px] px-8 py-4 text-lg font-semibold focus:ring-4 focus:ring-accent/50"
-                                aria-label="Get started with accessible learning platform"
-                                role="button"
-                                tabindex="0"
-                                as-child
-                            >
-                                <Link href="/auth"> Get Started </Link>
+                                aria-label="ابدأ مع منصة التعلم المتاحة" role="button" tabindex="0" as-child>
+                                <Link href="/auth"> ابدأ الآن </Link>
                             </Button>
 
-                            <Button
-                                variant="outline"
-                                size="lg"
+                            <Button variant="outline" size="lg"
                                 class="min-h-[44px] min-w-[44px] px-8 py-4 text-lg font-semibold focus:ring-4 focus:ring-primary/50"
-                                aria-label="Learn more about our accessibility features"
-                                role="button"
-                                tabindex="0"
-                                as-child
-                            >
-                                <a href="#features"> Learn More </a>
+                                aria-label="تعرف على المزيد حول ميزات إمكانية الوصول" role="button" tabindex="0"
+                                as-child>
+                                <a href="#features"> تعرف على المزيد </a>
                             </Button>
                         </div>
 
                         <!-- Accessibility Features List -->
                         <div class="mt-12 space-y-4">
-                            <h3 class="text-lg font-semibold text-primary">Accessibility Features:</h3>
-                            <ul class="grid gap-3 text-foreground sm:grid-cols-2" role="list" aria-label="List of accessibility features">
+                            <h3 class="text-lg font-semibold text-primary">ميزات إمكانية الوصول:</h3>
+                            <ul class="grid gap-3 text-foreground sm:grid-cols-2" role="list"
+                                aria-label="قائمة ميزات إمكانية الوصول">
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>Screen Reader Compatible</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>متوافق مع قارئ الشاشة</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>High Contrast Design</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>تصميم عالي التباين</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>Keyboard Navigation</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>التنقل بلوحة المفاتيح</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>Text-to-Speech Support</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>دعم تحويل النص إلى كلام</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>Large Touch Targets</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>أهداف لمس كبيرة</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-                                    <span>Adaptive Learning Paths</span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
+                                        aria-hidden="true"></span>
+                                    <span>مسارات تعلم تكيفية</span>
                                 </li>
                             </ul>
                         </div>
@@ -329,33 +331,28 @@ const submitContact = () => {
 
                     <!-- Visual Section -->
                     <div class="flex justify-center lg:justify-end">
-                        <div
-                            class="relative aspect-square w-full max-w-lg rounded-2xl border border-border bg-card p-8 shadow-lg"
+                        <div class="relative aspect-square w-full max-w-lg rounded-2xl border border-border bg-card p-8 shadow-lg"
                             role="img"
-                            aria-label="Illustration showing diverse learners using accessible technology for education"
-                        >
+                            aria-label="رسم توضيحي يظهر متعلمين متنوعين يستخدمون التكنولوجيا المتاحة للتعليم">
                             <!-- Placeholder for inclusive learning illustration -->
-                            <img
-                                src="/hero.jpg?height=400&width=400"
-                                alt="Diverse students with disabilities engaging with accessible learning technology, including a person using a braille display, another using a screen reader, and sign language interpretation"
-                                class="h-full w-full rounded-lg object-cover"
-                                loading="eager"
-                            />
+                            <img src="/hero.jpg?height=400&width=400"
+                                alt="طلاب متنوعون من ذوي الإعاقة يتفاعلون مع تكنولوجيا التعلم المتاحة، بما في ذلك شخص يستخدم شاشة برايل، وآخر يستخدم قارئ الشاشة، وترجمة لغة الإشارة"
+                                class="h-full w-full rounded-lg object-cover" loading="eager" />
 
                             <!-- Decorative elements -->
-                            <div class="absolute -top-4 -right-4 h-8 w-8 rounded-full bg-accent" aria-hidden="true"></div>
-                            <div class="absolute -bottom-4 -left-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true"></div>
+                            <div class="absolute -top-4 -left-4 h-8 w-8 rounded-full bg-accent" aria-hidden="true">
+                            </div>
+                            <div class="absolute -bottom-4 -right-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Skip to main content link for screen readers -->
-            <a
-                href="#main-content"
-                class="sr-only z-50 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground focus:not-sr-only focus:absolute focus:top-4 focus:right-4"
-            >
-                Skip to main content
+            <a href="#main-content"
+                class="sr-only z-50 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4">
+                انتقل إلى المحتوى الرئيسي
             </a>
         </section>
 
@@ -366,40 +363,31 @@ const submitContact = () => {
                 <div class="mx-auto max-w-6xl px-4">
                     <div class="mb-16 text-center">
                         <h2 id="features-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
-                            Accessibility-First Features
+                            ميزات تركز على إمكانية الوصول أولاً
                         </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            Our platform is built from the ground up with accessibility in mind, ensuring every learner can succeed regardless of
-                            their abilities.
+                            تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر
+                            عن
+                            قدراته.
                         </p>
-                        <Button
-                            @click="
-                                () =>
-                                    speakText(
-                                        'Accessibility-First Features. Our platform is built from the ground up with accessibility in mind, ensuring every learner can succeed regardless of their abilities.',
-                                    )
-                            "
-                            variant="ghost"
-                            size="sm"
-                            class="mt-4"
-                            aria-label="Listen to features section introduction"
-                        >
-                            <Volume2 class="mr-2 h-4 w-4" />
-                            Listen to Section
+                        <Button @click="
+                            () =>
+                                speakText(
+                                    'ميزات تركز على إمكانية الوصول أولاً. تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر عن قدراته.',
+                                )
+                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم الميزات">
+                            <Volume2 class="ml-2 h-4 w-4" />
+                            استمع للقسم
                         </Button>
                     </div>
 
                     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        <Card
-                            v-for="(feature, index) in features"
-                            :key="index"
+                        <Card v-for="(feature, index) in features" :key="index"
                             class="group transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 hover:shadow-lg"
-                            :aria-label="feature.ariaLabel"
-                        >
+                            :aria-label="feature.ariaLabel">
                             <CardHeader class="text-center">
                                 <div
-                                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20"
-                                >
+                                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
                                     <component :is="feature.icon" class="h-8 w-8 text-primary" aria-hidden="true" />
                                 </div>
                                 <CardTitle class="text-xl font-semibold">{{ feature.title }}</CardTitle>
@@ -408,15 +396,11 @@ const submitContact = () => {
                                 <CardDescription class="text-center text-base leading-relaxed">
                                     {{ feature.description }}
                                 </CardDescription>
-                                <Button
-                                    @click="() => speakText(`${feature.title}. ${feature.description}`)"
-                                    variant="ghost"
-                                    size="sm"
-                                    class="mt-4 w-full"
-                                    :aria-label="`Listen to ${feature.title} feature description`"
-                                >
-                                    <Volume2 class="mr-2 h-4 w-4" />
-                                    Listen
+                                <Button @click="() => speakText(`${feature.title}. ${feature.description}`)"
+                                    variant="ghost" size="sm" class="mt-4 w-full"
+                                    :aria-label="`استمع لوصف ميزة ${feature.title}`">
+                                    <Volume2 class="ml-2 h-4 w-4" />
+                                    استمع
                                 </Button>
                             </CardContent>
                         </Card>
@@ -428,39 +412,31 @@ const submitContact = () => {
             <section id="stories" class="w-full py-20" aria-labelledby="stories-heading">
                 <div class="mx-auto max-w-6xl px-4">
                     <div class="mb-16 text-center">
-                        <h2 id="stories-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">Success Stories</h2>
+                        <h2 id="stories-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+                            قصص النجاح
+                        </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            Real stories from learners who have transformed their educational journey through accessible learning.
+                            قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.
                         </p>
-                        <Button
-                            @click="
-                                () =>
-                                    speakText(
-                                        'Success Stories. Real stories from learners who have transformed their educational journey through accessible learning.',
-                                    )
-                            "
-                            variant="ghost"
-                            size="sm"
-                            class="mt-4"
-                            aria-label="Listen to success stories section introduction"
-                        >
-                            <Volume2 class="mr-2 h-4 w-4" />
-                            Listen to Section
+                        <Button @click="
+                            () =>
+                                speakText(
+                                    'قصص النجاح. قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.',
+                                )
+                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم قصص النجاح">
+                            <Volume2 class="ml-2 h-4 w-4" />
+                            استمع للقسم
                         </Button>
                     </div>
 
                     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        <Card
-                            v-for="(story, index) in stories"
-                            :key="index"
+                        <Card v-for="(story, index) in stories" :key="index"
                             class="group transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 hover:shadow-lg"
-                            :aria-label="story.ariaLabel"
-                        >
+                            :aria-label="story.ariaLabel">
                             <CardHeader>
                                 <div class="mb-4 flex items-center gap-4">
                                     <div
-                                        class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-lg font-bold text-white"
-                                    >
+                                        class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-lg font-bold text-white">
                                         {{
                                             story.name
                                                 .split(' ')
@@ -473,27 +449,19 @@ const submitContact = () => {
                                         <p class="text-sm text-muted-foreground">{{ story.role }}</p>
                                     </div>
                                 </div>
-                                <div class="mb-4 flex gap-1" :aria-label="`${story.rating} out of 5 stars`">
-                                    <Star
-                                        v-for="i in 5"
-                                        :key="i"
-                                        class="h-4 w-4"
+                                <div class="mb-4 flex gap-1" :aria-label="`${story.rating} من أصل 5 نجوم`">
+                                    <Star v-for="i in 5" :key="i" class="h-4 w-4"
                                         :class="i <= story.rating ? 'fill-current text-yellow-400' : 'text-gray-300'"
-                                        aria-hidden="true"
-                                    />
+                                        aria-hidden="true" />
                                 </div>
                             </CardHeader>
                             <CardContent>
                                 <blockquote class="text-base leading-relaxed italic">"{{ story.story }}"</blockquote>
-                                <Button
-                                    @click="() => speakText(`Story from ${story.name}, ${story.role}. ${story.story}`)"
-                                    variant="ghost"
-                                    size="sm"
-                                    class="mt-4 w-full"
-                                    :aria-label="`Listen to ${story.name}'s success story`"
-                                >
-                                    <Volume2 class="mr-2 h-4 w-4" />
-                                    Listen to Story
+                                <Button @click="() => speakText(`قصة من ${story.name}، ${story.role}. ${story.story}`)"
+                                    variant="ghost" size="sm" class="mt-4 w-full"
+                                    :aria-label="`استمع لقصة نجاح ${story.name}`">
+                                    <Volume2 class="ml-2 h-4 w-4" />
+                                    استمع للقصة
                                 </Button>
                             </CardContent>
                         </Card>
@@ -503,28 +471,23 @@ const submitContact = () => {
 
             <!-- Accessibility Section -->
             <section id="accessibility" class="w-full bg-muted/30 py-20" aria-labelledby="accessibility-heading">
-                <div class="mx-auto max-w-6xl px-4">
+                <div class="mx-auto max-w-6xl px-4" dir="rtl">
                     <div class="mb-16 text-center">
-                        <h2 id="accessibility-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
-                            Our Commitment to Accessibility
+                        <h2 id="accessibility-heading"
+                            class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+                            التزامنا بإمكانية الوصول
                         </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            We believe education should be accessible to everyone. Our platform meets and exceeds WCAG 2.1 AA standards.
+                            نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.
                         </p>
-                        <Button
-                            @click="
-                                () =>
-                                    speakText(
-                                        'Our Commitment to Accessibility. We believe education should be accessible to everyone. Our platform meets and exceeds WCAG 2.1 AA standards.',
-                                    )
-                            "
-                            variant="ghost"
-                            size="sm"
-                            class="mt-4"
-                            aria-label="Listen to accessibility commitment section introduction"
-                        >
-                            <Volume2 class="mr-2 h-4 w-4" />
-                            Listen to Section
+                        <Button @click="
+                            () =>
+                                speakText(
+                                    'التزامنا بإمكانية الوصول. نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.',
+                                )
+                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم التزام إمكانية الوصول">
+                            <Volume2 class="ml-2 h-4 w-4" />
+                            استمع للقسم
                         </Button>
                     </div>
 
@@ -532,61 +495,69 @@ const submitContact = () => {
                         <div class="space-y-8">
                             <div class="space-y-6">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div
+                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Accessibility class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
-                                        <h3 class="mb-2 text-xl font-semibold">WCAG 2.1 AA Compliant</h3>
+                                        <h3 class="mb-2 text-xl font-semibold">متوافق مع WCAG 2.1 AA</h3>
                                         <p class="text-muted-foreground">
-                                            Our platform meets the highest web accessibility standards, ensuring compatibility with all assistive
-                                            technologies.
+                                            منصتنا تلبي أعلى معايير إمكانية الوصول للويب، مما يضمن التوافق مع جميع
+                                            التقنيات
+                                            المساعدة.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-4">
-                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div
+                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Heart class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
-                                        <h3 class="mb-2 text-xl font-semibold">Inclusive Design</h3>
+                                        <h3 class="mb-2 text-xl font-semibold">تصميم شامل</h3>
                                         <p class="text-muted-foreground">
-                                            Every feature is designed with diverse abilities in mind, from color choices to interaction patterns.
+                                            كل ميزة مصممة مع وضع القدرات المتنوعة في الاعتبار، من اختيارات الألوان إلى
+                                            أنماط
+                                            التفاعل.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-4">
-                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div
+                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Users class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
-                                        <h3 class="mb-2 text-xl font-semibold">Community Tested</h3>
+                                        <h3 class="mb-2 text-xl font-semibold">مختبر من المجتمع</h3>
                                         <p class="text-muted-foreground">
-                                            Our platform is regularly tested by users with disabilities to ensure real-world accessibility.
+                                            يتم اختبار منصتنا بانتظام من قبل مستخدمين ذوي إعاقة لضمان إمكانية الوصول في
+                                            العالم
+                                            الحقيقي.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="rounded-lg border bg-card p-6">
-                                <h4 class="mb-4 text-lg font-semibold">Accessibility Standards We Meet:</h4>
+                                <h4 class="mb-4 text-lg font-semibold">معايير إمكانية الوصول التي نلبيها:</h4>
                                 <ul class="space-y-2 text-sm" role="list">
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
-                                        <span>WCAG 2.1 Level AA</span>
+                                        <span>WCAG 2.1 المستوى AA</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
-                                        <span>Section 508 Compliance</span>
+                                        <span>امتثال القسم 508</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
-                                        <span>ADA Compliance</span>
+                                        <span>امتثال ADA</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
-                                        <span>EN 301 549 European Standard</span>
+                                        <span>المعيار الأوروبي EN 301 549</span>
                                     </li>
                                 </ul>
                             </div>
@@ -594,14 +565,14 @@ const submitContact = () => {
 
                         <div class="flex justify-center">
                             <div class="relative">
-                                <img
-                                    src="/accessibility.jpg?height=500&width=500"
-                                    alt="Diverse group of people with various disabilities using assistive technologies to access educational content on computers and mobile devices"
-                                    class="h-auto max-w-full rounded-2xl shadow-lg"
-                                    loading="lazy"
-                                />
-                                <div class="absolute -right-4 -bottom-4 h-8 w-8 rounded-full bg-primary" aria-hidden="true"></div>
-                                <div class="absolute -top-4 -left-4 h-6 w-6 rounded-full bg-accent" aria-hidden="true"></div>
+                                <img src="/accessibility.jpg?height=500&width=500"
+                                    alt="مجموعة متنوعة من الأشخاص ذوي الإعاقات المختلفة يستخدمون التقنيات المساعدة للوصول إلى المحتوى التعليمي على أجهزة الكمبيوتر والأجهزة المحمولة"
+                                    class="h-auto max-w-full rounded-2xl shadow-lg" loading="lazy" />
+                                <div class="absolute -left-4 -bottom-4 h-8 w-8 rounded-full bg-primary"
+                                    aria-hidden="true">
+                                </div>
+                                <div class="absolute -top-4 -right-4 h-6 w-6 rounded-full bg-accent" aria-hidden="true">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -609,27 +580,24 @@ const submitContact = () => {
             </section>
 
             <!-- Contact Section -->
-            <section id="contact" class="w-full py-20" aria-labelledby="contact-heading">
+            <section id="contact" class="w-full py-20" aria-labelledby="contact-heading" dir="rtl">
                 <div class="mx-auto max-w-6xl px-4">
                     <div class="mb-16 text-center">
-                        <h2 id="contact-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">Get in Touch</h2>
+                        <h2 id="contact-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+                            تواصل معنا
+                        </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            Have questions about accessibility features or need support? We're here to help make learning accessible for everyone.
+                            هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً
+                            للجميع.
                         </p>
-                        <Button
-                            @click="
-                                () =>
-                                    speakText(
-                                        'Get in Touch. Have questions about accessibility features or need support? We are here to help make learning accessible for everyone.',
-                                    )
-                            "
-                            variant="ghost"
-                            size="sm"
-                            class="mt-4"
-                            aria-label="Listen to contact section introduction"
-                        >
-                            <Volume2 class="mr-2 h-4 w-4" />
-                            Listen to Section
+                        <Button @click="
+                            () =>
+                                speakText(
+                                    'تواصل معنا. هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً للجميع.',
+                                )
+                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم التواصل">
+                            <Volume2 class="ml-2 h-4 w-4" />
+                            استمع للقسم
                         </Button>
                     </div>
 
@@ -637,62 +605,69 @@ const submitContact = () => {
                         <!-- Contact Information -->
                         <div class="space-y-8">
                             <div>
-                                <h3 class="mb-6 text-2xl font-semibold">Contact Information</h3>
+                                <h3 class="mb-6 text-2xl font-semibold">معلومات التواصل</h3>
                                 <div class="space-y-6">
                                     <div class="flex items-start gap-4">
-                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div
+                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <Mail class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
-                                            <h4 class="mb-1 font-semibold">Email Support</h4>
+                                            <h4 class="mb-1 font-semibold">دعم البريد الإلكتروني</h4>
                                             <p class="text-muted-foreground">accessibility@learningplatform.com</p>
-                                            <p class="mt-1 text-sm text-muted-foreground">24/7 accessibility support available</p>
+                                            <p class="mt-1 text-sm text-muted-foreground">دعم إمكانية الوصول متاح 24/7
+                                            </p>
                                         </div>
                                     </div>
 
                                     <div class="flex items-start gap-4">
-                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div
+                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <Phone class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
-                                            <h4 class="mb-1 font-semibold">Phone Support</h4>
+                                            <h4 class="mb-1 font-semibold">الدعم الهاتفي</h4>
                                             <p class="text-muted-foreground">+1 (555) 123-4567</p>
                                             <p class="mt-1 text-sm text-muted-foreground">TTY: +1 (555) 123-4568</p>
                                         </div>
                                     </div>
 
                                     <div class="flex items-start gap-4">
-                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div
+                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <MessageSquare class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
-                                            <h4 class="mb-1 font-semibold">Live Chat</h4>
-                                            <p class="text-muted-foreground">Available with screen reader support</p>
-                                            <p class="mt-1 text-sm text-muted-foreground">Monday - Friday, 9 AM - 6 PM EST</p>
+                                            <h4 class="mb-1 font-semibold">الدردشة المباشرة</h4>
+                                            <p class="text-muted-foreground">متاح مع دعم قارئ الشاشة</p>
+                                            <p class="mt-1 text-sm text-muted-foreground">الاثنين - الجمعة، 9 صباحاً - 6
+                                                مساءً
+                                                بتوقيت شرق أمريكا</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="rounded-lg border bg-card p-6">
-                                <h4 class="mb-4 text-lg font-semibold">Accessibility Support</h4>
-                                <p class="mb-4 text-muted-foreground">Our dedicated accessibility team is available to help with:</p>
+                                <h4 class="mb-4 text-lg font-semibold">دعم إمكانية الوصول</h4>
+                                <p class="mb-4 text-muted-foreground">فريق إمكانية الوصول المخصص لدينا متاح للمساعدة في:
+                                </p>
                                 <ul class="space-y-2 text-sm" role="list">
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
-                                        <span>Assistive technology setup</span>
+                                        <span>إعداد التقنيات المساعدة</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
-                                        <span>Platform navigation assistance</span>
+                                        <span>مساعدة التنقل في المنصة</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
-                                        <span>Accessibility feature training</span>
+                                        <span>تدريب على ميزات إمكانية الوصول</span>
                                     </li>
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
-                                        <span>Custom accommodation requests</span>
+                                        <span>طلبات التسهيلات المخصصة</span>
                                     </li>
                                 </ul>
                             </div>
@@ -701,75 +676,52 @@ const submitContact = () => {
                         <!-- Contact Form -->
                         <Card class="p-6">
                             <CardHeader class="px-0 pt-0">
-                                <CardTitle class="text-xl">Send us a Message</CardTitle>
-                                <CardDescription> Fill out the form below and we'll get back to you within 24 hours. </CardDescription>
+                                <CardTitle class="text-xl">أرسل لنا رسالة</CardTitle>
+                                <CardDescription>املأ النموذج أدناه وسنعاود الاتصال بك خلال 24 ساعة.</CardDescription>
                             </CardHeader>
                             <CardContent class="px-0 pb-0">
-                                <form @submit.prevent="submitContact" class="space-y-6" aria-label="Contact form">
+                                <form @submit.prevent="submitContact" class="space-y-6" aria-label="نموذج التواصل">
                                     <div class="grid gap-4 sm:grid-cols-2">
                                         <div class="space-y-2">
                                             <Label for="contact-name" class="text-sm font-medium">
-                                                Name <span class="text-red-500" aria-label="required">*</span>
+                                                الاسم <span class="text-red-500" aria-label="مطلوب">*</span>
                                             </Label>
-                                            <Input
-                                                id="contact-name"
-                                                v-model="contactForm.name"
-                                                type="text"
-                                                placeholder="Your full name"
-                                                required
-                                                class="min-h-[44px]"
-                                                aria-describedby="name-help"
-                                            />
-                                            <p id="name-help" class="sr-only">Enter your full name for contact purposes</p>
+                                            <Input id="contact-name" v-model="contactForm.name" type="text"
+                                                placeholder="اسمك الكامل" required class="min-h-[44px]"
+                                                aria-describedby="name-help" />
+                                            <p id="name-help" class="sr-only">أدخل اسمك الكامل لأغراض التواصل</p>
                                         </div>
                                         <div class="space-y-2">
                                             <Label for="contact-email" class="text-sm font-medium">
-                                                Email <span class="text-red-500" aria-label="required">*</span>
+                                                البريد الإلكتروني <span class="text-red-500" aria-label="مطلوب">*</span>
                                             </Label>
-                                            <Input
-                                                id="contact-email"
-                                                v-model="contactForm.email"
-                                                type="email"
-                                                placeholder="your.email@example.com"
-                                                required
-                                                class="min-h-[44px]"
-                                                aria-describedby="email-help"
-                                            />
-                                            <p id="email-help" class="sr-only">Enter your email address for our response</p>
+                                            <Input id="contact-email" v-model="contactForm.email" type="email"
+                                                placeholder="your.email@example.com" required class="min-h-[44px]"
+                                                aria-describedby="email-help" />
+                                            <p id="email-help" class="sr-only">أدخل عنوان بريدك الإلكتروني لردنا</p>
                                         </div>
                                     </div>
                                     <div class="space-y-2">
                                         <Label for="contact-subject" class="text-sm font-medium">
-                                            Subject <span class="text-red-500" aria-label="required">*</span>
+                                            الموضوع <span class="text-red-500" aria-label="مطلوب">*</span>
                                         </Label>
-                                        <Input
-                                            id="contact-subject"
-                                            v-model="contactForm.subject"
-                                            type="text"
-                                            placeholder="What can we help you with?"
-                                            required
-                                            class="min-h-[44px]"
-                                            aria-describedby="subject-help"
-                                        />
-                                        <p id="subject-help" class="sr-only">Brief description of your inquiry</p>
+                                        <Input id="contact-subject" v-model="contactForm.subject" type="text"
+                                            placeholder="كيف يمكننا مساعدتك؟" required class="min-h-[44px]"
+                                            aria-describedby="subject-help" />
+                                        <p id="subject-help" class="sr-only">وصف موجز لاستفسارك</p>
                                     </div>
                                     <div class="space-y-2">
                                         <Label for="contact-message" class="text-sm font-medium">
-                                            Message <span class="text-red-500" aria-label="required">*</span>
+                                            الرسالة <span class="text-red-500" aria-label="مطلوب">*</span>
                                         </Label>
-                                        <Textarea
-                                            id="contact-message"
-                                            v-model="contactForm.message"
-                                            placeholder="Please describe your question or how we can help you..."
-                                            required
-                                            rows="5"
-                                            class="min-h-[120px] resize-none"
-                                            aria-describedby="message-help"
-                                        />
-                                        <p id="message-help" class="sr-only">Detailed description of your inquiry or support request</p>
+                                        <Textarea id="contact-message" v-model="contactForm.message"
+                                            placeholder="يرجى وصف سؤالك أو كيف يمكننا مساعدتك..." required rows="5"
+                                            class="min-h-[120px] resize-none" aria-describedby="message-help" />
+                                        <p id="message-help" class="sr-only">وصف مفصل لاستفسارك أو طلب الدعم</p>
                                     </div>
-                                    <Button type="submit" class="min-h-[44px] w-full text-lg font-semibold" aria-label="Send contact form message">
-                                        Send Message
+                                    <Button type="submit" class="min-h-[44px] w-full text-lg font-semibold"
+                                        aria-label="إرسال رسالة نموذج التواصل">
+                                        إرسال الرسالة
                                     </Button>
                                 </form>
                             </CardContent>
@@ -780,69 +732,56 @@ const submitContact = () => {
         </main>
 
         <!-- Footer -->
-        <footer class="mt-20 w-full bg-muted/50 py-12" role="contentinfo" aria-label="Site footer">
+        <footer class="mt-20 w-full bg-muted/50 py-12" role="contentinfo" aria-label="تذييل الموقع" dir="rtl">
             <div class="mx-auto max-w-6xl px-4">
                 <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                     <!-- Company Info -->
                     <div class="space-y-4">
                         <div class="flex items-center gap-2">
                             <HomeIcon class="h-6 w-6 text-primary" aria-hidden="true" />
-                            <span class="text-lg font-semibold">AccessLearn</span>
+                            <span class="text-lg font-semibold">إبصار للتعلم</span>
                         </div>
                         <p class="text-sm text-muted-foreground">
-                            Making education accessible for everyone, everywhere. Built with accessibility at its core.
+                            جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.
                         </p>
-                        <Button
-                            @click="
-                                () =>
-                                    speakText(
-                                        'AccessLearn. Making education accessible for everyone, everywhere. Built with accessibility at its core.',
-                                    )
-                            "
-                            variant="ghost"
-                            size="sm"
-                            aria-label="Listen to company description"
-                        >
-                            <Volume2 class="mr-2 h-4 w-4" />
-                            Listen
+                        <Button @click="
+                            () =>
+                                speakText(
+                                    'إبصار للتعلم. جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.',
+                                )
+                        " variant="ghost" size="sm" aria-label="استمع لوصف الشركة">
+                            <Volume2 class="ml-2 h-4 w-4" />
+                            استمع
                         </Button>
                     </div>
 
                     <!-- Quick Links -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold">Quick Links</h3>
-                        <nav aria-label="Footer navigation">
+                        <h3 class="text-lg font-semibold">روابط سريعة</h3>
+                        <nav aria-label="تنقل التذييل">
                             <ul class="space-y-2 text-sm" role="list">
                                 <li role="listitem">
-                                    <a
-                                        href="#features"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                    >
-                                        Features
+                                    <a href="#features"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                        الميزات
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a
-                                        href="#stories"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                    >
-                                        Success Stories
+                                    <a href="#stories"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                        قصص النجاح
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a
-                                        href="#accessibility"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                    >
-                                        Accessibility
+                                    <a href="#accessibility"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                        إمكانية الوصول
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a
-                                        href="#contact"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                    >
-                                        Contact
+                                    <a href="#contact"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                        اتصل بنا
                                     </a>
                                 </li>
                             </ul>
@@ -851,38 +790,30 @@ const submitContact = () => {
 
                     <!-- Support -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold">Support</h3>
+                        <h3 class="text-lg font-semibold">الدعم</h3>
                         <ul class="space-y-2 text-sm" role="list">
                             <li role="listitem">
-                                <a
-                                    href="/help"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Help Center
+                                <a href="/help"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    مركز المساعدة
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/accessibility-guide"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Accessibility Guide
+                                <a href="/accessibility-guide"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    دليل إمكانية الوصول
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/tutorials"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Video Tutorials
+                                <a href="/tutorials"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    دروس الفيديو
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/community"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Community Forum
+                                <a href="/community"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    منتدى المجتمع
                                 </a>
                             </li>
                         </ul>
@@ -890,38 +821,30 @@ const submitContact = () => {
 
                     <!-- Legal -->
                     <div class="space-y-4">
-                        <h3 class="text-lg font-semibold">Legal</h3>
+                        <h3 class="text-lg font-semibold">قانوني</h3>
                         <ul class="space-y-2 text-sm" role="list">
                             <li role="listitem">
-                                <a
-                                    href="/privacy"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Privacy Policy
+                                <a href="/privacy"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    سياسة الخصوصية
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/terms"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Terms of Service
+                                <a href="/terms"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    شروط الخدمة
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/accessibility-statement"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Accessibility Statement
+                                <a href="/accessibility-statement"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    بيان إمكانية الوصول
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a
-                                    href="/cookies"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
-                                >
-                                    Cookie Policy
+                                <a href="/cookies"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    سياسة ملفات تعريف الارتباط
                                 </a>
                             </li>
                         </ul>
@@ -930,10 +853,13 @@ const submitContact = () => {
 
                 <div class="mt-12 border-t border-border pt-8">
                     <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-                        <p class="text-sm text-muted-foreground">© 2025 AccessLearn. All rights reserved. Committed to digital accessibility.</p>
+                        <p class="text-sm text-muted-foreground">© 2025 إبصار للتعلم. جميع الحقوق محفوظة. ملتزمون
+                            بإمكانية
+                            الوصول الرقمي.</p>
                         <div class="flex items-center gap-4">
-                            <span class="text-sm text-muted-foreground">WCAG 2.1 AA Compliant</span>
-                            <div class="h-4 w-4 rounded-full bg-green-500" aria-label="Accessibility certified" title="WCAG 2.1 AA Compliant"></div>
+                            <span class="text-sm text-muted-foreground">متوافق مع WCAG 2.1 AA</span>
+                            <div class="h-4 w-4 rounded-full bg-green-500" aria-label="معتمد لإمكانية الوصول"
+                                title="متوافق مع WCAG 2.1 AA"></div>
                         </div>
                     </div>
                 </div>
