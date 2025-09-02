@@ -18,6 +18,9 @@ class CourseForm
                     ->required(),
                 FileUpload::make('image')
                     ->image()
+                    ->disk('public')
+                    ->directory('courses')
+                    ->visibility('public')
                     ->required(),
             ]);
     }

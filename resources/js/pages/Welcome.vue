@@ -101,21 +101,21 @@ const stories = [
     {
         name: 'سارة تشين',
         role: 'طالبة علوم الحاسوب',
-        story: "كطالبة مكفوفة، لم أعتقد أبداً أنني أستطيع دراسة البرمجة. توافق هذه المنصة مع قارئ الشاشة ودروس البرمجة الصوتية جعل من الممكن لي أن أتعلم وأتفوق في علوم الحاسوب.",
+        story: 'كطالبة مكفوفة، لم أعتقد أبداً أنني أستطيع دراسة البرمجة. توافق هذه المنصة مع قارئ الشاشة ودروس البرمجة الصوتية جعل من الممكن لي أن أتعلم وأتفوق في علوم الحاسوب.',
         rating: 5,
         ariaLabel: 'قصة نجاح من سارة تشين، طالبة علوم الحاسوب المكفوفة',
     },
     {
         name: 'ماركوس رودريغيز',
         role: 'مدافع عن تعليم الصم',
-        story: "ترجمة لغة الإشارة وأدوات التعلم البصري غيرت طريقة وصولي للمحتوى التعليمي. أخيراً، منصة تفهم حقاً احتياجات المتعلمين الصم.",
+        story: 'ترجمة لغة الإشارة وأدوات التعلم البصري غيرت طريقة وصولي للمحتوى التعليمي. أخيراً، منصة تفهم حقاً احتياجات المتعلمين الصم.',
         rating: 5,
         ariaLabel: 'قصة نجاح من ماركوس رودريغيز، مدافع عن تعليم الصم',
     },
     {
         name: 'إيما طومسون',
         role: 'معلمة وأم',
-        story: "ابنتي تعاني من عسر القراءة، وميزات النص التكيفي لهذه المنصة ونهج التعلم متعدد الحواس عززت ثقتها وأداءها الأكاديمي بشكل كبير.",
+        story: 'ابنتي تعاني من عسر القراءة، وميزات النص التكيفي لهذه المنصة ونهج التعلم متعدد الحواس عززت ثقتها وأداءها الأكاديمي بشكل كبير.',
         rating: 5,
         ariaLabel: 'قصة نجاح من إيما طومسون، معلمة وأم لطفل يعاني من عسر القراءة',
     },
@@ -142,14 +142,14 @@ const submitContact = () => {
     <Head title="مرحباً بك في إبصار">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap"
-            rel="stylesheet">
+            rel="stylesheet" />
     </Head>
 
     <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
-        style="font-family: 'Noto Sans Arabic', sans-serif;">
+        style="font-family: 'Noto Sans Arabic', sans-serif">
         <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-between py-4">
                 <!-- Home Icon -->
@@ -180,7 +180,7 @@ const submitContact = () => {
                         </Button>
                     </template>
                     <Button v-else as-child class="text-lg font-medium">
-                        <Link :href="route('dashboard')">لوحة التحكم</Link>
+                        <Link :href="route('courses')">دورات</Link>
                     </Button>
                 </div>
 
@@ -207,7 +207,8 @@ const submitContact = () => {
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
                                 <Link :href="route('login')" class="w-full justify-center text-lg font-medium"
                                     @click="isOpen = false">
-                                تسجيل الدخول </Link>
+                                تسجيل الدخول
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
                                 <Link :href="route('register')" class="w-full justify-center text-lg font-medium"
@@ -271,7 +272,8 @@ const submitContact = () => {
                         <p class="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl lg:mx-0">
                             اختبر التعلم المصمم مع إمكانية الوصول في جوهره. توفر منصتنا موارد تعليمية شاملة مع دعم كامل
                             لقارئ
-                            الشاشة، وصور عالية التباين، وتقنيات تكيفية للمتعلمين الصم والمكفوفين.
+                            الشاشة، وصور عالية
+                            التباين، وتقنيات تكيفية للمتعلمين الصم والمكفوفين.
                         </p>
 
                         <!-- Call to Action -->
@@ -342,7 +344,7 @@ const submitContact = () => {
                             <!-- Decorative elements -->
                             <div class="absolute -top-4 -left-4 h-8 w-8 rounded-full bg-accent" aria-hidden="true">
                             </div>
-                            <div class="absolute -bottom-4 -right-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true">
+                            <div class="absolute -right-4 -bottom-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true">
                             </div>
                         </div>
                     </div>
@@ -418,12 +420,9 @@ const submitContact = () => {
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
                             قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.
                         </p>
-                        <Button @click="
-                            () =>
-                                speakText(
-                                    'قصص النجاح. قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.',
-                                )
-                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم قصص النجاح">
+                        <Button
+                            @click="() => speakText('قصص النجاح. قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.')"
+                            variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم قصص النجاح">
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>
@@ -568,7 +567,7 @@ const submitContact = () => {
                                 <img src="/accessibility.jpg?height=500&width=500"
                                     alt="مجموعة متنوعة من الأشخاص ذوي الإعاقات المختلفة يستخدمون التقنيات المساعدة للوصول إلى المحتوى التعليمي على أجهزة الكمبيوتر والأجهزة المحمولة"
                                     class="h-auto max-w-full rounded-2xl shadow-lg" loading="lazy" />
-                                <div class="absolute -left-4 -bottom-4 h-8 w-8 rounded-full bg-primary"
+                                <div class="absolute -bottom-4 -left-4 h-8 w-8 rounded-full bg-primary"
                                     aria-hidden="true">
                                 </div>
                                 <div class="absolute -top-4 -right-4 h-6 w-6 rounded-full bg-accent" aria-hidden="true">
@@ -741,15 +740,12 @@ const submitContact = () => {
                             <HomeIcon class="h-6 w-6 text-primary" aria-hidden="true" />
                             <span class="text-lg font-semibold">إبصار للتعلم</span>
                         </div>
-                        <p class="text-sm text-muted-foreground">
-                            جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.
-                        </p>
-                        <Button @click="
-                            () =>
-                                speakText(
-                                    'إبصار للتعلم. جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.',
-                                )
-                        " variant="ghost" size="sm" aria-label="استمع لوصف الشركة">
+                        <p class="text-sm text-muted-foreground">جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية
+                            الوصول
+                            في جوهره.</p>
+                        <Button
+                            @click="() => speakText('إبصار للتعلم. جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.')"
+                            variant="ghost" size="sm" aria-label="استمع لوصف الشركة">
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع
                         </Button>
