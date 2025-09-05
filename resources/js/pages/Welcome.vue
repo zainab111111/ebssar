@@ -143,7 +143,7 @@ const submitContact = () => {
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap"
             rel="stylesheet" />
     </Head>
@@ -180,7 +180,7 @@ const submitContact = () => {
                         </Button>
                     </template>
                     <Button v-else as-child class="text-lg font-medium">
-                        <Link :href="route('courses')">دورات</Link>
+                        <Link :href="route('courses.index')">دورات</Link>
                     </Button>
                 </div>
 
@@ -484,7 +484,8 @@ const submitContact = () => {
                                 speakText(
                                     'التزامنا بإمكانية الوصول. نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.',
                                 )
-                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم التزام إمكانية الوصول">
+                        " variant="ghost" size="sm" class="mt-4"
+                            aria-label="استمع لمقدمة قسم التزام إمكانية الوصول">
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>

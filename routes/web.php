@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,14 +12,11 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/courses', [CoursesController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('courses');
+Route::get('/courses', [CourseController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('courses.index');
 
-Route::get('/courses/{course}', function ($course) {
-    return Inertia::render('Course', [
-        'course' => $course,
-    ]);
-})->middleware(['auth', 'verified'])->name('course');
+Route::get('/courses/{course}', [CourseController::class, 'show'])
+    ->middleware(['auth', 'verified'])->name('courses.show');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
