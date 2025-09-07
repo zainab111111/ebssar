@@ -21,7 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Courses" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+        <div dir="rtl" class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
                 <div v-for="course in props.courses" :key="course.id"
                     class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
@@ -36,7 +36,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <CardContent class="flex flex-col gap-2">
                             {{ course.name }}
                             <Button class="w-full">
-                                <Link class="w-full" :href="route('courses.show', course.id)"> Start learning </Link>
+                                <Link class="w-full" :href="route('courses.show', course.id)"> >ابدأ التعلم </Link>
                             </Button>
                         </CardContent>
                     </Card>
@@ -45,3 +45,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         </div>
     </AppLayout>
 </template>
+
+
+
