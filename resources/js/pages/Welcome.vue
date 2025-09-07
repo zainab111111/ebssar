@@ -138,23 +138,23 @@ const submitContact = () => {
 </script>
 
 <template>
-
     <Head title="مرحباً بك في إبصار">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com"  />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap"
-            rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet" />
     </Head>
 
-    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
-        style="font-family: 'Noto Sans Arabic', sans-serif">
+    <div
+        class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
+        style="font-family: 'Cairo', 'Noto Sans Arabic', sans-serif"
+    >
         <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-between py-4">
                 <!-- Home Icon -->
                 <Link href="/" class="flex items-center">
-                <HomeIcon class="h-8 w-8 text-primary" />
+                    <HomeIcon class="h-8 w-8 text-primary" />
                 </Link>
 
                 <!-- Desktop Navigation -->
@@ -162,8 +162,7 @@ const submitContact = () => {
                     <NavigationMenu>
                         <NavigationMenuList>
                             <NavigationMenuItem v-for="page in pages" :key="page.name">
-                                <NavigationMenuLink :href="page.href" :class="navigationMenuTriggerStyle()"
-                                    class="text-lg font-medium">
+                                <NavigationMenuLink :href="page.href" :class="navigationMenuTriggerStyle()" class="text-lg font-medium">
                                     {{ page.name }}
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
@@ -189,37 +188,32 @@ const submitContact = () => {
                     <DropdownMenu v-model:open="isOpen">
                         <DropdownMenuTrigger as-child>
                             <Button variant="default" size="icon" aria-label="تبديل القائمة">
-                                <Menu v-if="!isOpen"
-                                    class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
+                                <Menu v-if="!isOpen" class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
                                 <X v-else class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" class="w-56">
                             <template v-for="page in pages" :key="page.name">
                                 <DropdownMenuItem as-child>
-                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium"
-                                        @click="isOpen = false">
-                                    {{ page.name }}
+                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
+                                        {{ page.name }}
                                     </Link>
                                 </DropdownMenuItem>
                             </template>
 
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('login')" class="w-full justify-center text-lg font-medium"
-                                    @click="isOpen = false">
-                                تسجيل الدخول
+                                <Link :href="route('login')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
+                                    تسجيل الدخول
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('register')" class="w-full justify-center text-lg font-medium"
-                                    @click="isOpen = false">
-                                التسجيل
+                                <Link :href="route('register')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
+                                    التسجيل
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem v-else as-child>
-                                <Link :href="route('dashboard')" class="w-full justify-center text-lg font-medium"
-                                    @click="isOpen = false">
-                                لوحة التحكم
+                                <Link :href="route('dashboard')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
+                                    لوحة التحكم
                                 </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -229,8 +223,12 @@ const submitContact = () => {
         </header>
 
         <!-- Hero Section -->
-        <section class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16" role="banner"
-            aria-label="قسم البطل لمنصة التعلم الإلكتروني المتاحة" dir="rtl">
+        <section
+            class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16"
+            role="banner"
+            aria-label="قسم البطل لمنصة التعلم الإلكتروني المتاحة"
+            dir="rtl"
+        >
             <!-- Background pattern for visual interest -->
             <div class="absolute inset-0 bg-card/30" aria-hidden="true"></div>
 
@@ -240,54 +238,69 @@ const submitContact = () => {
                     <div class="space-y-8 text-center lg:text-right">
                         <!-- Main Heading -->
                         <div class="space-y-4">
-                            <h1 class="text-4xl leading-tight font-black text-primary md:text-5xl lg:text-6xl"
-                                id="main-heading">
+                            <h1 class="text-4xl leading-tight font-black text-primary md:text-5xl lg:text-6xl" id="main-heading">
                                 اطلق العنان لرحلة التعلم الخاصة بك
                             </h1>
 
                             <!-- Text-to-speech button for main heading -->
-                            <button @click="() => speakText('اطلق العنان لرحلة التعلم الخاصة بك')"
+                            <button
+                                @click="() => speakText('اطلق العنان لرحلة التعلم الخاصة بك')"
                                 class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-4 focus:right-4"
-                                aria-label="استمع للعنوان الرئيسي" type="button">
+                                aria-label="استمع للعنوان الرئيسي"
+                                type="button"
+                            >
                                 🔊 استمع للعنوان
                             </button>
                         </div>
 
                         <!-- Subheading -->
                         <div class="space-y-4">
-                            <h2 class="text-xl leading-relaxed font-semibold text-foreground md:text-2xl lg:text-3xl"
-                                id="sub-heading">
+                            <h2 class="text-xl leading-relaxed font-semibold text-foreground md:text-2xl lg:text-3xl" id="sub-heading">
                                 تعليم متاح لجميع القدرات
                             </h2>
 
                             <!-- Text-to-speech button for subheading -->
-                            <button @click="() => speakText('تعليم متاح لجميع القدرات')"
+                            <button
+                                @click="() => speakText('تعليم متاح لجميع القدرات')"
                                 class="sr-only rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground focus:not-sr-only focus:absolute focus:top-16 focus:right-4"
-                                aria-label="استمع للعنوان الفرعي" type="button">
+                                aria-label="استمع للعنوان الفرعي"
+                                type="button"
+                            >
                                 🔊 استمع للعنوان الفرعي
                             </button>
                         </div>
 
                         <!-- Description -->
                         <p class="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl lg:mx-0">
-                            اختبر التعلم المصمم مع إمكانية الوصول في جوهره. توفر منصتنا موارد تعليمية شاملة مع دعم كامل
-                            لقارئ
-                            الشاشة، وصور عالية
+                            اختبر التعلم المصمم مع إمكانية الوصول في جوهره. توفر منصتنا موارد تعليمية شاملة مع دعم كامل لقارئ الشاشة، وصور عالية
                             التباين، وتقنيات تكيفية للمتعلمين الصم والمكفوفين.
                         </p>
 
                         <!-- Call to Action -->
                         <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                            <Button variant="default" size="lg" @click="handleGetStarted" @keydown="handleKeyDown"
+                            <Button
+                                variant="default"
+                                size="lg"
+                                @click="handleGetStarted"
+                                @keydown="handleKeyDown"
                                 class="min-h-[44px] min-w-[44px] px-8 py-4 text-lg font-semibold focus:ring-4 focus:ring-accent/50"
-                                aria-label="ابدأ مع منصة التعلم المتاحة" role="button" tabindex="0" as-child>
+                                aria-label="ابدأ مع منصة التعلم المتاحة"
+                                role="button"
+                                tabindex="0"
+                                as-child
+                            >
                                 <Link href="/auth"> ابدأ الآن </Link>
                             </Button>
 
-                            <Button variant="outline" size="lg"
+                            <Button
+                                variant="outline"
+                                size="lg"
                                 class="min-h-[44px] min-w-[44px] px-8 py-4 text-lg font-semibold focus:ring-4 focus:ring-primary/50"
-                                aria-label="تعرف على المزيد حول ميزات إمكانية الوصول" role="button" tabindex="0"
-                                as-child>
+                                aria-label="تعرف على المزيد حول ميزات إمكانية الوصول"
+                                role="button"
+                                tabindex="0"
+                                as-child
+                            >
                                 <a href="#features"> تعرف على المزيد </a>
                             </Button>
                         </div>
@@ -295,36 +308,29 @@ const submitContact = () => {
                         <!-- Accessibility Features List -->
                         <div class="mt-12 space-y-4">
                             <h3 class="text-lg font-semibold text-primary">ميزات إمكانية الوصول:</h3>
-                            <ul class="grid gap-3 text-foreground sm:grid-cols-2" role="list"
-                                aria-label="قائمة ميزات إمكانية الوصول">
+                            <ul class="grid gap-3 text-foreground sm:grid-cols-2" role="list" aria-label="قائمة ميزات إمكانية الوصول">
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>متوافق مع قارئ الشاشة</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>تصميم عالي التباين</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>التنقل بلوحة المفاتيح</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>دعم تحويل النص إلى كلام</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>أهداف لمس كبيرة</span>
                                 </li>
                                 <li class="flex items-center gap-3" role="listitem">
-                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent"
-                                        aria-hidden="true"></span>
+                                    <span class="h-2 w-2 flex-shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
                                     <span>مسارات تعلم تكيفية</span>
                                 </li>
                             </ul>
@@ -333,27 +339,32 @@ const submitContact = () => {
 
                     <!-- Visual Section -->
                     <div class="flex justify-center lg:justify-end">
-                        <div class="relative aspect-square w-full max-w-lg rounded-2xl border border-border bg-card p-8 shadow-lg"
+                        <div
+                            class="relative aspect-square w-full max-w-lg rounded-2xl border border-border bg-card p-8 shadow-lg"
                             role="img"
-                            aria-label="رسم توضيحي يظهر متعلمين متنوعين يستخدمون التكنولوجيا المتاحة للتعليم">
+                            aria-label="رسم توضيحي يظهر متعلمين متنوعين يستخدمون التكنولوجيا المتاحة للتعليم"
+                        >
                             <!-- Placeholder for inclusive learning illustration -->
-                            <img src="/hero.jpg?height=400&width=400"
+                            <img
+                                src="/hero.jpg?height=400&width=400"
                                 alt="طلاب متنوعون من ذوي الإعاقة يتفاعلون مع تكنولوجيا التعلم المتاحة، بما في ذلك شخص يستخدم شاشة برايل، وآخر يستخدم قارئ الشاشة، وترجمة لغة الإشارة"
-                                class="h-full w-full rounded-lg object-cover" loading="eager" />
+                                class="h-full w-full rounded-lg object-cover"
+                                loading="eager"
+                            />
 
                             <!-- Decorative elements -->
-                            <div class="absolute -top-4 -left-4 h-8 w-8 rounded-full bg-accent" aria-hidden="true">
-                            </div>
-                            <div class="absolute -right-4 -bottom-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true">
-                            </div>
+                            <div class="absolute -top-4 -left-4 h-8 w-8 rounded-full bg-accent" aria-hidden="true"></div>
+                            <div class="absolute -right-4 -bottom-4 h-6 w-6 rounded-full bg-primary" aria-hidden="true"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Skip to main content link for screen readers -->
-            <a href="#main-content"
-                class="sr-only z-50 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4">
+            <a
+                href="#main-content"
+                class="sr-only z-50 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
+            >
                 انتقل إلى المحتوى الرئيسي
             </a>
         </section>
@@ -368,28 +379,36 @@ const submitContact = () => {
                             ميزات تركز على إمكانية الوصول أولاً
                         </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر
-                            عن
-                            قدراته.
+                            تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر عن قدراته.
                         </p>
-                        <Button @click="
-                            () =>
-                                speakText(
-                                    'ميزات تركز على إمكانية الوصول أولاً. تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر عن قدراته.',
-                                )
-                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم الميزات">
+                        <Button
+                            @click="
+                                () =>
+                                    speakText(
+                                        'ميزات تركز على إمكانية الوصول أولاً. تم بناء منصتنا من الأساس مع وضع إمكانية الوصول في الاعتبار، مما يضمن نجاح كل متعلم بغض النظر عن قدراته.',
+                                    )
+                            "
+                            variant="ghost"
+                            size="sm"
+                            class="mt-4"
+                            aria-label="استمع لمقدمة قسم الميزات"
+                        >
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>
                     </div>
 
                     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        <Card v-for="(feature, index) in features" :key="index"
+                        <Card
+                            v-for="(feature, index) in features"
+                            :key="index"
                             class="group transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 hover:shadow-lg"
-                            :aria-label="feature.ariaLabel">
+                            :aria-label="feature.ariaLabel"
+                        >
                             <CardHeader class="text-center">
                                 <div
-                                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
+                                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20"
+                                >
                                     <component :is="feature.icon" class="h-8 w-8 text-primary" aria-hidden="true" />
                                 </div>
                                 <CardTitle class="text-xl font-semibold">{{ feature.title }}</CardTitle>
@@ -398,9 +417,13 @@ const submitContact = () => {
                                 <CardDescription class="text-center text-base leading-relaxed">
                                     {{ feature.description }}
                                 </CardDescription>
-                                <Button @click="() => speakText(`${feature.title}. ${feature.description}`)"
-                                    variant="ghost" size="sm" class="mt-4 w-full"
-                                    :aria-label="`استمع لوصف ميزة ${feature.title}`">
+                                <Button
+                                    @click="() => speakText(`${feature.title}. ${feature.description}`)"
+                                    variant="ghost"
+                                    size="sm"
+                                    class="mt-4 w-full"
+                                    :aria-label="`استمع لوصف ميزة ${feature.title}`"
+                                >
                                     <Volume2 class="ml-2 h-4 w-4" />
                                     استمع
                                 </Button>
@@ -414,28 +437,34 @@ const submitContact = () => {
             <section id="stories" class="w-full py-20" aria-labelledby="stories-heading">
                 <div class="mx-auto max-w-6xl px-4">
                     <div class="mb-16 text-center">
-                        <h2 id="stories-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
-                            قصص النجاح
-                        </h2>
+                        <h2 id="stories-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">قصص النجاح</h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
                             قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.
                         </p>
                         <Button
                             @click="() => speakText('قصص النجاح. قصص حقيقية من متعلمين غيروا رحلتهم التعليمية من خلال التعلم المتاح.')"
-                            variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم قصص النجاح">
+                            variant="ghost"
+                            size="sm"
+                            class="mt-4"
+                            aria-label="استمع لمقدمة قسم قصص النجاح"
+                        >
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>
                     </div>
 
                     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        <Card v-for="(story, index) in stories" :key="index"
+                        <Card
+                            v-for="(story, index) in stories"
+                            :key="index"
                             class="group transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 hover:shadow-lg"
-                            :aria-label="story.ariaLabel">
+                            :aria-label="story.ariaLabel"
+                        >
                             <CardHeader>
                                 <div class="mb-4 flex items-center gap-4">
                                     <div
-                                        class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-lg font-bold text-white">
+                                        class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-lg font-bold text-white"
+                                    >
                                         {{
                                             story.name
                                                 .split(' ')
@@ -449,16 +478,24 @@ const submitContact = () => {
                                     </div>
                                 </div>
                                 <div class="mb-4 flex gap-1" :aria-label="`${story.rating} من أصل 5 نجوم`">
-                                    <Star v-for="i in 5" :key="i" class="h-4 w-4"
+                                    <Star
+                                        v-for="i in 5"
+                                        :key="i"
+                                        class="h-4 w-4"
                                         :class="i <= story.rating ? 'fill-current text-yellow-400' : 'text-gray-300'"
-                                        aria-hidden="true" />
+                                        aria-hidden="true"
+                                    />
                                 </div>
                             </CardHeader>
                             <CardContent>
                                 <blockquote class="text-base leading-relaxed italic">"{{ story.story }}"</blockquote>
-                                <Button @click="() => speakText(`قصة من ${story.name}، ${story.role}. ${story.story}`)"
-                                    variant="ghost" size="sm" class="mt-4 w-full"
-                                    :aria-label="`استمع لقصة نجاح ${story.name}`">
+                                <Button
+                                    @click="() => speakText(`قصة من ${story.name}، ${story.role}. ${story.story}`)"
+                                    variant="ghost"
+                                    size="sm"
+                                    class="mt-4 w-full"
+                                    :aria-label="`استمع لقصة نجاح ${story.name}`"
+                                >
                                     <Volume2 class="ml-2 h-4 w-4" />
                                     استمع للقصة
                                 </Button>
@@ -472,20 +509,24 @@ const submitContact = () => {
             <section id="accessibility" class="w-full bg-muted/30 py-20" aria-labelledby="accessibility-heading">
                 <div class="mx-auto max-w-6xl px-4" dir="rtl">
                     <div class="mb-16 text-center">
-                        <h2 id="accessibility-heading"
-                            class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+                        <h2 id="accessibility-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
                             التزامنا بإمكانية الوصول
                         </h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
                             نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.
                         </p>
-                        <Button @click="
-                            () =>
-                                speakText(
-                                    'التزامنا بإمكانية الوصول. نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.',
-                                )
-                        " variant="ghost" size="sm" class="mt-4"
-                            aria-label="استمع لمقدمة قسم التزام إمكانية الوصول">
+                        <Button
+                            @click="
+                                () =>
+                                    speakText(
+                                        'التزامنا بإمكانية الوصول. نؤمن أن التعليم يجب أن يكون متاحاً للجميع. منصتنا تلبي وتتجاوز معايير WCAG 2.1 AA.',
+                                    )
+                            "
+                            variant="ghost"
+                            size="sm"
+                            class="mt-4"
+                            aria-label="استمع لمقدمة قسم التزام إمكانية الوصول"
+                        >
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>
@@ -495,46 +536,37 @@ const submitContact = () => {
                         <div class="space-y-8">
                             <div class="space-y-6">
                                 <div class="flex items-start gap-4">
-                                    <div
-                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Accessibility class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
                                         <h3 class="mb-2 text-xl font-semibold">متوافق مع WCAG 2.1 AA</h3>
                                         <p class="text-muted-foreground">
-                                            منصتنا تلبي أعلى معايير إمكانية الوصول للويب، مما يضمن التوافق مع جميع
-                                            التقنيات
-                                            المساعدة.
+                                            منصتنا تلبي أعلى معايير إمكانية الوصول للويب، مما يضمن التوافق مع جميع التقنيات المساعدة.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-4">
-                                    <div
-                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Heart class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
                                         <h3 class="mb-2 text-xl font-semibold">تصميم شامل</h3>
                                         <p class="text-muted-foreground">
-                                            كل ميزة مصممة مع وضع القدرات المتنوعة في الاعتبار، من اختيارات الألوان إلى
-                                            أنماط
-                                            التفاعل.
+                                            كل ميزة مصممة مع وضع القدرات المتنوعة في الاعتبار، من اختيارات الألوان إلى أنماط التفاعل.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-4">
-                                    <div
-                                        class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                         <Users class="h-6 w-6 text-primary" aria-hidden="true" />
                                     </div>
                                     <div>
                                         <h3 class="mb-2 text-xl font-semibold">مختبر من المجتمع</h3>
                                         <p class="text-muted-foreground">
-                                            يتم اختبار منصتنا بانتظام من قبل مستخدمين ذوي إعاقة لضمان إمكانية الوصول في
-                                            العالم
-                                            الحقيقي.
+                                            يتم اختبار منصتنا بانتظام من قبل مستخدمين ذوي إعاقة لضمان إمكانية الوصول في العالم الحقيقي.
                                         </p>
                                     </div>
                                 </div>
@@ -565,14 +597,14 @@ const submitContact = () => {
 
                         <div class="flex justify-center">
                             <div class="relative">
-                                <img src="/accessibility.jpg?height=500&width=500"
+                                <img
+                                    src="/accessibility.jpg?height=500&width=500"
                                     alt="مجموعة متنوعة من الأشخاص ذوي الإعاقات المختلفة يستخدمون التقنيات المساعدة للوصول إلى المحتوى التعليمي على أجهزة الكمبيوتر والأجهزة المحمولة"
-                                    class="h-auto max-w-full rounded-2xl shadow-lg" loading="lazy" />
-                                <div class="absolute -bottom-4 -left-4 h-8 w-8 rounded-full bg-primary"
-                                    aria-hidden="true">
-                                </div>
-                                <div class="absolute -top-4 -right-4 h-6 w-6 rounded-full bg-accent" aria-hidden="true">
-                                </div>
+                                    class="h-auto max-w-full rounded-2xl shadow-lg"
+                                    loading="lazy"
+                                />
+                                <div class="absolute -bottom-4 -left-4 h-8 w-8 rounded-full bg-primary" aria-hidden="true"></div>
+                                <div class="absolute -top-4 -right-4 h-6 w-6 rounded-full bg-accent" aria-hidden="true"></div>
                             </div>
                         </div>
                     </div>
@@ -583,19 +615,22 @@ const submitContact = () => {
             <section id="contact" class="w-full py-20" aria-labelledby="contact-heading" dir="rtl">
                 <div class="mx-auto max-w-6xl px-4">
                     <div class="mb-16 text-center">
-                        <h2 id="contact-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
-                            تواصل معنا
-                        </h2>
+                        <h2 id="contact-heading" class="mb-4 text-3xl font-bold text-primary md:text-4xl lg:text-5xl">تواصل معنا</h2>
                         <p class="mx-auto max-w-3xl text-lg text-muted-foreground">
-                            هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً
-                            للجميع.
+                            هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً للجميع.
                         </p>
-                        <Button @click="
-                            () =>
-                                speakText(
-                                    'تواصل معنا. هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً للجميع.',
-                                )
-                        " variant="ghost" size="sm" class="mt-4" aria-label="استمع لمقدمة قسم التواصل">
+                        <Button
+                            @click="
+                                () =>
+                                    speakText(
+                                        'تواصل معنا. هل لديك أسئلة حول ميزات إمكانية الوصول أو تحتاج للدعم؟ نحن هنا لمساعدتك في جعل التعلم متاحاً للجميع.',
+                                    )
+                            "
+                            variant="ghost"
+                            size="sm"
+                            class="mt-4"
+                            aria-label="استمع لمقدمة قسم التواصل"
+                        >
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع للقسم
                         </Button>
@@ -608,21 +643,18 @@ const submitContact = () => {
                                 <h3 class="mb-6 text-2xl font-semibold">معلومات التواصل</h3>
                                 <div class="space-y-6">
                                     <div class="flex items-start gap-4">
-                                        <div
-                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <Mail class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
                                             <h4 class="mb-1 font-semibold">دعم البريد الإلكتروني</h4>
                                             <p class="text-muted-foreground">accessibility@learningplatform.com</p>
-                                            <p class="mt-1 text-sm text-muted-foreground">دعم إمكانية الوصول متاح 24/7
-                                            </p>
+                                            <p class="mt-1 text-sm text-muted-foreground">دعم إمكانية الوصول متاح 24/7</p>
                                         </div>
                                     </div>
 
                                     <div class="flex items-start gap-4">
-                                        <div
-                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <Phone class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
@@ -633,16 +665,13 @@ const submitContact = () => {
                                     </div>
 
                                     <div class="flex items-start gap-4">
-                                        <div
-                                            class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
                                             <MessageSquare class="h-6 w-6 text-primary" aria-hidden="true" />
                                         </div>
                                         <div>
                                             <h4 class="mb-1 font-semibold">الدردشة المباشرة</h4>
                                             <p class="text-muted-foreground">متاح مع دعم قارئ الشاشة</p>
-                                            <p class="mt-1 text-sm text-muted-foreground">الاثنين - الجمعة، 9 صباحاً - 6
-                                                مساءً
-                                                بتوقيت شرق أمريكا</p>
+                                            <p class="mt-1 text-sm text-muted-foreground">الاثنين - الجمعة، 9 صباحاً - 6 مساءً بتوقيت شرق أمريكا</p>
                                         </div>
                                     </div>
                                 </div>
@@ -650,8 +679,7 @@ const submitContact = () => {
 
                             <div class="rounded-lg border bg-card p-6">
                                 <h4 class="mb-4 text-lg font-semibold">دعم إمكانية الوصول</h4>
-                                <p class="mb-4 text-muted-foreground">فريق إمكانية الوصول المخصص لدينا متاح للمساعدة في:
-                                </p>
+                                <p class="mb-4 text-muted-foreground">فريق إمكانية الوصول المخصص لدينا متاح للمساعدة في:</p>
                                 <ul class="space-y-2 text-sm" role="list">
                                     <li class="flex items-center gap-2" role="listitem">
                                         <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
@@ -686,18 +714,30 @@ const submitContact = () => {
                                             <Label for="contact-name" class="text-sm font-medium">
                                                 الاسم <span class="text-red-500" aria-label="مطلوب">*</span>
                                             </Label>
-                                            <Input id="contact-name" v-model="contactForm.name" type="text"
-                                                placeholder="اسمك الكامل" required class="min-h-[44px]"
-                                                aria-describedby="name-help" />
+                                            <Input
+                                                id="contact-name"
+                                                v-model="contactForm.name"
+                                                type="text"
+                                                placeholder="اسمك الكامل"
+                                                required
+                                                class="min-h-[44px]"
+                                                aria-describedby="name-help"
+                                            />
                                             <p id="name-help" class="sr-only">أدخل اسمك الكامل لأغراض التواصل</p>
                                         </div>
                                         <div class="space-y-2">
                                             <Label for="contact-email" class="text-sm font-medium">
                                                 البريد الإلكتروني <span class="text-red-500" aria-label="مطلوب">*</span>
                                             </Label>
-                                            <Input id="contact-email" v-model="contactForm.email" type="email"
-                                                placeholder="your.email@example.com" required class="min-h-[44px]"
-                                                aria-describedby="email-help" />
+                                            <Input
+                                                id="contact-email"
+                                                v-model="contactForm.email"
+                                                type="email"
+                                                placeholder="your.email@example.com"
+                                                required
+                                                class="min-h-[44px]"
+                                                aria-describedby="email-help"
+                                            />
                                             <p id="email-help" class="sr-only">أدخل عنوان بريدك الإلكتروني لردنا</p>
                                         </div>
                                     </div>
@@ -705,22 +745,33 @@ const submitContact = () => {
                                         <Label for="contact-subject" class="text-sm font-medium">
                                             الموضوع <span class="text-red-500" aria-label="مطلوب">*</span>
                                         </Label>
-                                        <Input id="contact-subject" v-model="contactForm.subject" type="text"
-                                            placeholder="كيف يمكننا مساعدتك؟" required class="min-h-[44px]"
-                                            aria-describedby="subject-help" />
+                                        <Input
+                                            id="contact-subject"
+                                            v-model="contactForm.subject"
+                                            type="text"
+                                            placeholder="كيف يمكننا مساعدتك؟"
+                                            required
+                                            class="min-h-[44px]"
+                                            aria-describedby="subject-help"
+                                        />
                                         <p id="subject-help" class="sr-only">وصف موجز لاستفسارك</p>
                                     </div>
                                     <div class="space-y-2">
                                         <Label for="contact-message" class="text-sm font-medium">
                                             الرسالة <span class="text-red-500" aria-label="مطلوب">*</span>
                                         </Label>
-                                        <Textarea id="contact-message" v-model="contactForm.message"
-                                            placeholder="يرجى وصف سؤالك أو كيف يمكننا مساعدتك..." required rows="5"
-                                            class="min-h-[120px] resize-none" aria-describedby="message-help" />
+                                        <Textarea
+                                            id="contact-message"
+                                            v-model="contactForm.message"
+                                            placeholder="يرجى وصف سؤالك أو كيف يمكننا مساعدتك..."
+                                            required
+                                            rows="5"
+                                            class="min-h-[120px] resize-none"
+                                            aria-describedby="message-help"
+                                        />
                                         <p id="message-help" class="sr-only">وصف مفصل لاستفسارك أو طلب الدعم</p>
                                     </div>
-                                    <Button type="submit" class="min-h-[44px] w-full text-lg font-semibold"
-                                        aria-label="إرسال رسالة نموذج التواصل">
+                                    <Button type="submit" class="min-h-[44px] w-full text-lg font-semibold" aria-label="إرسال رسالة نموذج التواصل">
                                         إرسال الرسالة
                                     </Button>
                                 </form>
@@ -741,12 +792,13 @@ const submitContact = () => {
                             <HomeIcon class="h-6 w-6 text-primary" aria-hidden="true" />
                             <span class="text-lg font-semibold">إبصار للتعلم</span>
                         </div>
-                        <p class="text-sm text-muted-foreground">جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية
-                            الوصول
-                            في جوهره.</p>
+                        <p class="text-sm text-muted-foreground">جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.</p>
                         <Button
                             @click="() => speakText('إبصار للتعلم. جعل التعليم متاحاً للجميع، في كل مكان. مبني مع إمكانية الوصول في جوهره.')"
-                            variant="ghost" size="sm" aria-label="استمع لوصف الشركة">
+                            variant="ghost"
+                            size="sm"
+                            aria-label="استمع لوصف الشركة"
+                        >
                             <Volume2 class="ml-2 h-4 w-4" />
                             استمع
                         </Button>
@@ -758,26 +810,34 @@ const submitContact = () => {
                         <nav aria-label="تنقل التذييل">
                             <ul class="space-y-2 text-sm" role="list">
                                 <li role="listitem">
-                                    <a href="#features"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    <a
+                                        href="#features"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                    >
                                         الميزات
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a href="#stories"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    <a
+                                        href="#stories"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                    >
                                         قصص النجاح
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a href="#accessibility"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    <a
+                                        href="#accessibility"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                    >
                                         إمكانية الوصول
                                     </a>
                                 </li>
                                 <li role="listitem">
-                                    <a href="#contact"
-                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                    <a
+                                        href="#contact"
+                                        class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                    >
                                         اتصل بنا
                                     </a>
                                 </li>
@@ -790,26 +850,34 @@ const submitContact = () => {
                         <h3 class="text-lg font-semibold">الدعم</h3>
                         <ul class="space-y-2 text-sm" role="list">
                             <li role="listitem">
-                                <a href="/help"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/help"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     مركز المساعدة
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/accessibility-guide"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/accessibility-guide"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     دليل إمكانية الوصول
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/tutorials"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/tutorials"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     دروس الفيديو
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/community"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/community"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     منتدى المجتمع
                                 </a>
                             </li>
@@ -821,26 +889,34 @@ const submitContact = () => {
                         <h3 class="text-lg font-semibold">قانوني</h3>
                         <ul class="space-y-2 text-sm" role="list">
                             <li role="listitem">
-                                <a href="/privacy"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/privacy"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     سياسة الخصوصية
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/terms"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/terms"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     شروط الخدمة
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/accessibility-statement"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/accessibility-statement"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     بيان إمكانية الوصول
                                 </a>
                             </li>
                             <li role="listitem">
-                                <a href="/cookies"
-                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                                <a
+                                    href="/cookies"
+                                    class="rounded text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                                >
                                     سياسة ملفات تعريف الارتباط
                                 </a>
                             </li>
@@ -850,13 +926,10 @@ const submitContact = () => {
 
                 <div class="mt-12 border-t border-border pt-8">
                     <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-                        <p class="text-sm text-muted-foreground">© 2025 إبصار للتعلم. جميع الحقوق محفوظة. ملتزمون
-                            بإمكانية
-                            الوصول الرقمي.</p>
+                        <p class="text-sm text-muted-foreground">© 2025 إبصار للتعلم. جميع الحقوق محفوظة. ملتزمون بإمكانية الوصول الرقمي.</p>
                         <div class="flex items-center gap-4">
                             <span class="text-sm text-muted-foreground">متوافق مع WCAG 2.1 AA</span>
-                            <div class="h-4 w-4 rounded-full bg-green-500" aria-label="معتمد لإمكانية الوصول"
-                                title="متوافق مع WCAG 2.1 AA"></div>
+                            <div class="h-4 w-4 rounded-full bg-green-500" aria-label="معتمد لإمكانية الوصول" title="متوافق مع WCAG 2.1 AA"></div>
                         </div>
                     </div>
                 </div>

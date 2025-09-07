@@ -36,7 +36,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <CardContent class="flex flex-col gap-2">
                             {{ course.name }}
                             <Button class="w-full">
-                                <Link class="w-full" :href="route('courses.show', course.id)"> >ابدأ التعلم </Link>
+                                <Link class="w-full" :href="route('courses.show', course.id)"> ابدأ التعلم </Link>
                             </Button>
                         </CardContent>
                     </Card>
@@ -45,6 +45,3 @@ const breadcrumbs: BreadcrumbItem[] = [
         </div>
     </AppLayout>
 </template>
-
-
-
