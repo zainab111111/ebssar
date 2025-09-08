@@ -9,6 +9,10 @@ class UserLesson extends Model
 {
     protected $fillable = ['user_id', 'lesson_id', 'is_completed'];
 
+    protected $casts = [
+    'is_completed' => 'boolean',
+    ];
+
     /**
      * @return BelongsTo<User,UserLesson>
      */

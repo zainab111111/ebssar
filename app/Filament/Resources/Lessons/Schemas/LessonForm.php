@@ -31,6 +31,9 @@ class LessonForm
                         'audio/mp4',
                         'audio/m4a'
                     ])
+                    ->disk('public')
+                    ->directory('lessons')
+                    ->visibility('public')
                     ->maxSize(10240)
                     ->required(),
                 Textarea::make('content')

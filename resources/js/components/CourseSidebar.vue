@@ -9,7 +9,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Milestone } from 'lucide-vue-next';
+import { router } from '@inertiajs/vue3';
+import { CheckCircle, Milestone } from 'lucide-vue-next';
 
 interface Course {
     id: number | string;
@@ -23,7 +24,7 @@ interface Lesson {
     id: number | string;
     title: string;
     index: number;
-    audio: string;
+    audio_url: string;
     content: string;
     is_completed: boolean;
 }
@@ -31,37 +32,54 @@ interface Lesson {
 const props = defineProps<{
     course?: Course;
     lessons?: Lesson[];
+    currentLesson?: Lesson;
 }>();
 
-// Menu items.
+// Menu items with active state
 const items = props.lessons?.map((item) => ({
     title: item.title,
     url: `/courses/${props.course?.id}/lessons/${item.id}`,
-    icon: Milestone,
+    icon: item.is_completed ? CheckCircle : Milestone,
+    isActive: props.currentLesson?.id === item.id,
+    isCompleted: item.is_completed,
 }));
+
+const handleLessonClick = (url: string, event: Event) => {
+    event.preventDefault();
+    //TODO: set is_completed to true
+    router.get(url);
+};
 </script>
 
 <template>
-    <Sidebar>
+    <Sidebar variant="sidebar">
         <SidebarHeader>
-            <SidebarHeaderTitle>
-                <div class="flex flex-col items-center gap-2">
-                    <img :src="props.course?.image_url" alt="Course image" loading="lazy"
-                        class="aspect-video rounded" />
+            <div class="flex flex-col items-center gap-2 p-4">
+                <img :src="props.course?.image_url" alt="Course image" loading="lazy" class="aspect-video w-full rounded object-cover" />
+                <h2 class="text-center text-sm font-semibold">
                     {{ props.course?.name }}
-                </div>
-            </SidebarHeaderTitle>
+                </h2>
+            </div>
         </SidebarHeader>
         <SidebarContent>
             <SidebarGroup>
                 <SidebarGroupContent>
                     <SidebarMenu>
                         <SidebarMenuItem v-for="item in items" :key="item.title">
-                            <SidebarMenuButton asChild>
-                                <a :href="item.url">
-                                    <component :is="item.icon" />
-                                    <span>{{ item.title }}</span>
-                                </a>
+                            <SidebarMenuButton
+                                :class="{
+                                    'bg-accent text-accent-foreground': item.isActive,
+                                    'text-green-600': item.isCompleted && !item.isActive,
+                                }"
+                                @click="(event: Event) => handleLessonClick(item.url, event)"
+                            >
+                                <component
+                                    :is="item.icon"
+                                    :class="{
+                                        'text-green-600': item.isCompleted,
+                                    }"
+                                />
+                                <span>{{ item.title }}</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>

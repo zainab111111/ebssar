@@ -18,5 +18,8 @@ Route::get('/courses', [CourseController::class, 'index'])
 Route::get('/courses/{course}', [CourseController::class, 'show'])
     ->middleware(['auth', 'verified'])->name('courses.show');
 
+Route::get('/courses/{course}/lessons/{lesson}', [CourseController::class, 'showLesson'])
+    ->name('courses.lessons.show');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserCourse extends Model
 {
     protected $fillable = ['user_id', 'course_id', 'is_completed'];
+
+    protected $casts = [
+    'is_completed' => 'boolean',
+    ];
+
     /**
      * @return BelongsTo<User,UserCourse>
      */

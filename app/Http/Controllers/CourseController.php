@@ -23,11 +23,14 @@ class CourseController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource (course overview).
      */
     public function show(Course $course, Request $request): Response
     {
-        $course->load(['lessons']);
+        $course->load(['lessons' => function ($query) {
+            $query->orderBy('index');
+        }]);
+
         if ($request->user()) {
             $course->load(['userCourses' => function ($query) use ($request) {
                 $query->where('user_id', $request->user()->id);
@@ -37,10 +40,46 @@ class CourseController extends Controller
                 $query->where('user_id', $request->user()->id);
             }]);
         }
+
         return inertia('Courses/Show', [
             'course' => (new CourseResource($course))->resolve(),
             'lessons' => LessonResource::collection($course->lessons)->resolve(),
         ]);
     }
 
+    /**
+     * Display a specific lesson within a course.
+     */
+    public function showLesson(Course $course, Lesson $lesson, Request $request): Response
+    {
+        // Ensure the lesson belongs to the course
+        if ($lesson->course_id !== $course->id) {
+            abort(404);
+        }
+
+        $course->load(['lessons' => function ($query) {
+            $query->orderBy('index');
+        }]);
+
+        if ($request->user()) {
+            $course->load(['userCourses' => function ($query) use ($request) {
+                $query->where('user_id', $request->user()->id);
+            }]);
+
+            $course->lessons->load(['userLessons' => function ($query) use ($request) {
+                $query->where('user_id', $request->user()->id);
+            }]);
+
+            // Load user lesson data for the current lesson
+            $lesson->load(['userLessons' => function ($query) use ($request) {
+                $query->where('user_id', $request->user()->id);
+            }]);
+        }
+
+        return inertia('Courses/Show', [
+            'course' => (new CourseResource($course))->resolve(),
+            'lessons' => LessonResource::collection($course->lessons)->resolve(),
+            'currentLesson' => (new LessonResource($lesson))->resolve(),
+        ]);
+    }
 }
