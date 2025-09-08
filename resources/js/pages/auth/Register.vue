@@ -10,10 +10,11 @@ import { LoaderCircle } from 'lucide-vue-next';
 </script>
 
 <template>
-    <AuthBase title="Create an account" description="Enter your details below to create your account">
+    <AuthBase title="أنشأ حسابك الخاص" description="قم بإدخال معلوماتك الشخصية الى حسابك ">
         <Head title="Register" />
 
         <Form
+            dir="rtl"
             method="post"
             :action="route('register')"
             :reset-on-success="['password', 'password_confirmation']"
@@ -22,25 +23,25 @@ import { LoaderCircle } from 'lucide-vue-next';
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name">Name</Label>
+                    <Label for="name">الاسم</Label>
                     <Input id="name" type="text" required autofocus :tabindex="1" autocomplete="name" name="name" placeholder="Full name" />
                     <InputError :message="errors.name" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">عنوان البريد الالكتروني  </Label>
                     <Input id="email" type="email" required :tabindex="2" autocomplete="email" name="email" placeholder="email@example.com" />
                     <InputError :message="errors.email" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password">Password</Label>
+                    <Label for="password">كلمة المرور</Label>
                     <Input id="password" type="password" required :tabindex="3" autocomplete="new-password" name="password" placeholder="Password" />
                     <InputError :message="errors.password" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
+                    <Label for="password_confirmation">تأكيد  كلمة المرور</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
@@ -55,13 +56,13 @@ import { LoaderCircle } from 'lucide-vue-next';
 
                 <Button type="submit" class="w-full mt-2" tabindex="5" :disabled="processing">
                     <LoaderCircle v-if="processing" class="w-4 h-4 animate-spin" />
-                    Create account
+                    إنشاء حساب
                 </Button>
             </div>
 
             <div class="text-sm text-center text-muted-foreground">
-                Already have an account?
-                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
+                هل لديك حساب بالفعل?
+                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">تسجيل الدخول</TextLink>
             </div>
         </Form>
     </AuthBase>
