@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Lessons\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -37,6 +38,7 @@ class LessonsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

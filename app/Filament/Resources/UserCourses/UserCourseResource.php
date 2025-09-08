@@ -47,7 +47,7 @@ class UserCourseResource extends Resource
         return [
             'index' => ListUserCourses::route('/'),
             'create' => CreateUserCourse::route('/create'),
-            'edit' => EditUserCourse::route('/{record}/edit'),
+            // 'edit' => EditUserCourse::route('/{record}/edit'),
         ];
     }
 }
