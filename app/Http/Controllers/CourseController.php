@@ -6,6 +6,8 @@ use App\Http\Resources\CourseResource;
 use App\Http\Resources\LessonResource;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\UserCourse;
+use App\Models\UserLesson;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
@@ -27,6 +29,16 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request): Response
     {
+        // Auto-enroll user in course if authenticated
+        if ($request->user()) {
+            UserCourse::firstOrCreate([
+                'user_id' => $request->user()->id,
+                'course_id' => $course->id,
+            ], [
+                'is_completed' => false,
+            ]);
+        }
+
         $course->load(['lessons' => function ($query) {
             $query->orderBy('index');
         }]);
@@ -57,6 +69,27 @@ class CourseController extends Controller
             abort(404);
         }
 
+        if ($request->user()) {
+            // Auto-enroll user in course if not already enrolled
+            UserCourse::firstOrCreate([
+                'user_id' => $request->user()->id,
+                'course_id' => $course->id,
+            ], [
+                'is_completed' => false,
+            ]);
+
+            // Automatically mark lesson as completed when opened
+            UserLesson::updateOrCreate([
+                'user_id' => $request->user()->id,
+                'lesson_id' => $lesson->id,
+            ], [
+                'is_completed' => true, // Auto-complete on access
+            ]);
+
+            // Check if all lessons in the course are completed after marking this one
+            $this->checkAndUpdateCourseCompletion($course, $request->user()->id);
+        }
+
         $course->load(['lessons' => function ($query) {
             $query->orderBy('index');
         }]);
@@ -70,7 +103,6 @@ class CourseController extends Controller
                 $query->where('user_id', $request->user()->id);
             }]);
 
-            // Load user lesson data for the current lesson
             $lesson->load(['userLessons' => function ($query) use ($request) {
                 $query->where('user_id', $request->user()->id);
             }]);
@@ -81,5 +113,51 @@ class CourseController extends Controller
             'lessons' => LessonResource::collection($course->lessons)->resolve(),
             'currentLesson' => (new LessonResource($lesson))->resolve(),
         ]);
+    }
+
+    /**
+     * Check and update course completion status.
+     */
+    private function checkAndUpdateCourseCompletion(Course $course, int $userId): void
+    {
+        $totalLessons = $course->lessons()->count();
+        $completedLessons = UserLesson::where('user_id', $userId)
+            ->whereIn('lesson_id', $course->lessons()->pluck('id'))
+            ->where('is_completed', true)
+            ->count();
+
+        // If all lessons are completed, mark course as completed
+        if ($totalLessons === $completedLessons && $totalLessons > 0) {
+            UserCourse::where('user_id', $userId)
+                ->where('course_id', $course->id)
+                ->update(['is_completed' => true]);
+        }
+    }
+
+    /**
+     * Manually mark a lesson as completed (optional - for cases where you want manual control).
+     */
+    public function completeLesson(Course $course, Lesson $lesson, Request $request): Response
+    {
+        if (!$request->user()) {
+            abort(401);
+        }
+
+        // Ensure the lesson belongs to the course
+        if ($lesson->course_id !== $course->id) {
+            abort(404);
+        }
+
+        // Mark lesson as completed
+        UserLesson::updateOrCreate([
+            'user_id' => $request->user()->id,
+            'lesson_id' => $lesson->id,
+        ], [
+            'is_completed' => true,
+        ]);
+
+        $this->checkAndUpdateCourseCompletion($course, $request->user()->id);
+
+        return redirect()->back()->with('success', 'Lesson marked as completed!');
     }
 }
