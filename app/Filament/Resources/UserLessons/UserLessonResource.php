@@ -46,8 +46,8 @@ class UserLessonResource extends Resource
     {
         return [
             'index' => ListUserLessons::route('/'),
-            'create' => CreateUserLesson::route('/create'),
-            'edit' => EditUserLesson::route('/{record}/edit'),
+            // 'create' => CreateUserLesson::route('/create'),
+            // 'edit' => EditUserLesson::route('/{record}/edit'),
         ];
     }
 }
