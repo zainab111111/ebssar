@@ -13,14 +13,26 @@ defineProps<Props>();
 </script>
 
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600" role="img"
-        aria-label="شعار منصة إبصار - عين مع مايكروفون ونص عربي، خلفية شفافة">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="0 0 1600 1600"
+        role="img"
+        aria-label="شعار منصة إبصار - عين مع مايكروفون ونص عربي، خلفية شفافة"
+    >
         <rect width="100%" height="100%" fill="none" />
         <!-- Mark -->
         <g transform="translate(800,560)">
             <!-- Eye -->
-            <path d="M -460 0 C -270 -200, 70 -200, 260 0 C 70 200, -270 200, -460 0 Z" stroke="#E1BEE7"
-                stroke-width="36" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+                d="M -460 0 C -270 -200, 70 -200, 260 0 C 70 200, -270 200, -460 0 Z"
+                stroke="#E1BEE7"
+                stroke-width="36"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
             <!-- Mic core -->
             <g transform="translate(-100,0)">
                 <circle cx="0" cy="0" r="120" fill="#E1BEE7" opacity="0.18" />
@@ -37,8 +49,9 @@ defineProps<Props>();
         </g>
         <!-- Wordmark -->
         <g transform="translate(800,1180)" text-anchor="middle">
-            <text x="0" y="0" font-size="220" fill="#E1BEE7" font-family="Noto Kufi Arabic, Cairo, Tahoma, sans-serif"
-                font-weight="800">منصة إبصار</text>
+            <text x="0" y="0" font-size="220" fill="#E1BEE7" font-family="Noto Kufi Arabic, Cairo, Tahoma, sans-serif" font-weight="800">
+                منصة إبصار
+            </text>
         </g>
     </svg>
 </template>
