@@ -347,7 +347,7 @@ const submitContact = () => {
                                 tabindex="0"
                                 as-child
                             >
-                                <Link :href="route('login')"> ابدأ الآن </Link>
+                                <Link :href="route('courses.index')"> ابدأ الآن </Link>
                             </Button>
 
                             <Button
