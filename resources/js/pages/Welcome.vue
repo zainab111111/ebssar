@@ -15,13 +15,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Head, Link } from '@inertiajs/vue3';
 import { Accessibility, BookOpen, Ear, Eye, Hand, Heart, HomeIcon, Mail, Menu, MessageSquare, Phone, Star, Users, Volume2, X } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed,} from 'vue';
 
-// Props for the hero section
-const props = defineProps<{
-    onGetStarted?: () => void;
-}>();
+// Mobile menu state
+const isMobileMenuOpen = ref(false)
 
-const isOpen = ref(false);
+// Computed properties
+const isAuthenticated = computed(() => usePage().props.auth?.user)
+
+// Methods
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+}
 
 const pages = [
     { name: 'الميزات', href: '#features' },
@@ -29,13 +35,6 @@ const pages = [
     { name: 'إمكانية الوصول', href: '#accessibility' },
     { name: 'اتصل بنا', href: '#contact' },
 ];
-
-// Default get started handler
-const handleGetStarted = () => {
-    if (props.onGetStarted) {
-        props.onGetStarted();
-    }
-};
 
 // Text-to-speech functionality for accessibility
 const speakText = (text: string) => {
@@ -45,14 +44,6 @@ const speakText = (text: string) => {
         utterance.volume = 0.8;
         utterance.lang = 'ar-SA'; // Arabic language
         speechSynthesis.speak(utterance);
-    }
-};
-
-// Handle keyboard events for buttons
-const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        handleGetStarted();
     }
 };
 
@@ -150,81 +141,150 @@ const submitContact = () => {
         class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
         style="font-family: 'Cairo', 'Noto Sans Arabic', sans-serif"
     >
-        <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
-            <nav class="flex items-center justify-between py-4">
-                <!-- Home Icon -->
-                <Link href="/" class="flex items-center">
-                    <HomeIcon class="h-8 w-8 text-primary" />
+  <header
+    class="mb-6 w-full fixed bg-background z-50 px-16 text-sm not-has-[nav]:hidden "
+    role="banner"
+  >
+    <nav class="flex items-center justify-between py-4" role="navigation">
+      <!-- Home Link -->
+      <Link
+        href="/"
+        class="flex items-center focus:outline-none focus:ring-2 focus:ring-primary focus:rounded"
+        aria-label="الصفحة الرئيسية"
+      >
+        <HomeIcon class="h-8 w-8 text-primary" aria-hidden="true" />
+      </Link>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex md:items-center md:gap-4">
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem v-for="page in pages" :key="page.name">
+              <NavigationMenuLink
+                :href="page.href"
+                :class="navigationMenuTriggerStyle()"
+                class="text-lg font-medium transition-colors hover:text-primary focus:text-primary"
+              >
+                {{ page.name }}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <!-- Desktop Auth Section -->
+        <div class="flex items-center gap-2">
+          <template v-if="!isAuthenticated">
+            <Button
+              as-child
+              variant="ghost"
+              class="text-lg font-medium"
+            >
+              <Link :href="route('login')">تسجيل الدخول</Link>
+            </Button>
+            <Button
+              as-child
+              class="text-lg font-medium"
+            >
+              <Link :href="route('register')">التسجيل</Link>
+            </Button>
+          </template>
+          <Button
+            v-else
+            as-child
+            class="text-lg font-medium"
+          >
+            <Link :href="route('courses.index')">دوراتي</Link>
+          </Button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="flex md:hidden">
+        <DropdownMenu v-model:open="isMobileMenuOpen">
+          <DropdownMenuTrigger as-child>
+            <Button
+              variant="default"
+              size="icon"
+              :aria-label="isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'"
+              :aria-expanded="isMobileMenuOpen"
+            >
+              <Transition name="menu-icon" mode="out-in">
+                <Menu
+                  v-if="!isMobileMenuOpen"
+                  key="menu"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                />
+                <X
+                  v-else
+                  key="close"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                />
+              </Transition>
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            align="end"
+            class="w-56"
+            @close-auto-focus.prevent
+          >
+            <!-- Navigation Links -->
+            <template v-for="page in pages" :key="page.name">
+              <DropdownMenuItem as-child>
+                <Link
+                  :href="page.href"
+                  class="w-full justify-center text-lg font-medium"
+                  @click="closeMobileMenu"
+                >
+                  {{ page.name }}
                 </Link>
+              </DropdownMenuItem>
+            </template>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex md:items-center md:gap-4">
-                    <NavigationMenu>
-                        <NavigationMenuList>
-                            <NavigationMenuItem v-for="page in pages" :key="page.name">
-                                <NavigationMenuLink :href="page.href" :class="navigationMenuTriggerStyle()" class="text-lg font-medium">
-                                    {{ page.name }}
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                        </NavigationMenuList>
-                    </NavigationMenu>
+            <!-- Separator -->
+            <DropdownMenuSeparator v-if="pages.length > 0" />
 
-                    <!-- Desktop Auth Buttons -->
-                    <template v-if="!$page.props.auth.user">
-                        <Button as-child variant="ghost" class="text-lg font-medium">
-                            <Link :href="route('login')">تسجيل الدخول</Link>
-                        </Button>
-                        <Button as-child class="text-lg font-medium">
-                            <Link :href="route('register')">التسجيل</Link>
-                        </Button>
-                    </template>
-                    <Button v-else as-child class="text-lg font-medium">
-                        <Link :href="route('courses.index')">دورات</Link>
-                    </Button>
-                </div>
-
-                <!-- Mobile Menu -->
-                <div class="flex md:hidden">
-                    <DropdownMenu v-model:open="isOpen">
-                        <DropdownMenuTrigger as-child>
-                            <Button variant="default" size="icon" aria-label="تبديل القائمة">
-                                <Menu v-if="!isOpen" class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
-                                <X v-else class="h-[1.2rem] w-[1.2rem] transition-all duration-300 ease-in-out" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" class="w-56">
-                            <template v-for="page in pages" :key="page.name">
-                                <DropdownMenuItem as-child>
-                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                        {{ page.name }}
-                                    </Link>
-                                </DropdownMenuItem>
-                            </template>
-
-                            <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('login')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                    تسجيل الدخول
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem v-if="!$page.props.auth.user" as-child>
-                                <Link :href="route('register')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                    التسجيل
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem v-else as-child>
-                                <Link :href="route('dashboard')" class="w-full justify-center text-lg font-medium" @click="isOpen = false">
-                                    لوحة التحكم
-                                </Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            </nav>
-        </header>
+            <!-- Auth Links -->
+            <template v-if="!isAuthenticated">
+              <DropdownMenuItem as-child>
+                <Link
+                  :href="route('login')"
+                  class="w-full justify-center text-lg font-medium"
+                  @click="closeMobileMenu"
+                >
+                  تسجيل الدخول
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem as-child>
+                <Link
+                  :href="route('register')"
+                  class="w-full justify-center text-lg font-medium"
+                  @click="closeMobileMenu"
+                >
+                  التسجيل
+                </Link>
+              </DropdownMenuItem>
+            </template>
+            <DropdownMenuItem v-else as-child>
+              <Link
+                :href="route('courses.index')"
+                class="w-full justify-center text-lg font-medium"
+                @click="closeMobileMenu"
+              >
+                لوحة التحكم
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </nav>
+  </header>
 
         <!-- Hero Section -->
         <section
-            class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16"
+            class="relative pt-28 flex min-h-screen w-full justify-center bg-background px-4 py-16"
             role="banner"
             aria-label="قسم البطل لمنصة التعلم الإلكتروني المتاحة"
             dir="rtl"
@@ -281,15 +341,13 @@ const submitContact = () => {
                             <Button
                                 variant="default"
                                 size="lg"
-                                @click="handleGetStarted"
-                                @keydown="handleKeyDown"
                                 class="min-h-[44px] min-w-[44px] px-8 py-4 text-lg font-semibold focus:ring-4 focus:ring-accent/50"
                                 aria-label="ابدأ مع منصة التعلم المتاحة"
                                 role="button"
                                 tabindex="0"
                                 as-child
                             >
-                                <Link href="/auth"> ابدأ الآن </Link>
+                                <Link :href="route('courses.index')"> ابدأ الآن </Link>
                             </Button>
 
                             <Button
@@ -984,5 +1042,15 @@ html {
     html {
         scroll-behavior: auto;
     }
+}
+.menu-icon-enter-active,
+.menu-icon-leave-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-icon-enter-from,
+.menu-icon-leave-to {
+  opacity: 0;
+  transform: rotate(90deg);
 }
 </style>
