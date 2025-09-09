@@ -28,7 +28,7 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
         <SettingsLayout>
             <div class="space-y-6">
-                <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+                <HeadingSmall title="تحديث كلمة المرور" description="تأكد من أن حسابك يستخدم كلمة مرور عشوائية طويلة للبقاء امنا" />
 
                 <Form
                     method="put"
@@ -42,7 +42,7 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
                     v-slot="{ errors, processing, recentlySuccessful }"
                 >
                     <div class="grid gap-2">
-                        <Label for="current_password">Current password</Label>
+                        <Label for="current_password">كلمة المرور الحالية</Label>
                         <Input
                             id="current_password"
                             ref="currentPasswordInput"
@@ -56,7 +56,7 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password">New password</Label>
+                        <Label for="password">كلمة المرور الجديده</Label>
                         <Input
                             id="password"
                             ref="passwordInput"
@@ -70,7 +70,7 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password_confirmation">Confirm password</Label>
+                        <Label for="password_confirmation">تأكد كلمة المرور</Label>
                         <Input
                             id="password_confirmation"
                             name="password_confirmation"
@@ -83,7 +83,7 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="processing">Save password</Button>
+                        <Button :disabled="processing">حفظ كلمة المرور</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"

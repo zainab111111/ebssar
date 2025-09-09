@@ -35,11 +35,11 @@ const user = page.props.auth.user as User;
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
-                <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <HeadingSmall title="معلومات الملف الشخصي " description="قم بتحديث أسمك و عنوان البريد الإلكتروني" />
 
                 <Form method="patch" :action="route('profile.update')" class="space-y-6" v-slot="{ errors, processing, recentlySuccessful }">
                     <div class="grid gap-2">
-                        <Label for="name">Name</Label>
+                        <Label for="name">الاسم</Label>
                         <Input
                             id="name"
                             class="mt-1 block w-full"
@@ -53,7 +53,7 @@ const user = page.props.auth.user as User;
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="email">Email address</Label>
+                        <Label for="email">عنوان البريد الالكتروني</Label>
                         <Input
                             id="email"
                             type="email"
@@ -86,7 +86,7 @@ const user = page.props.auth.user as User;
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="processing">Save</Button>
+                        <Button :disabled="processing">حفظ</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"
