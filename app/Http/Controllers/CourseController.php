@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index(): Response
     {
-        $courses = Course::all();
+        $courses = Course::all()->load('userCourses');
         return inertia('Courses/Index', [
             'courses' => CourseResource::collection($courses)->resolve(),
         ]);
