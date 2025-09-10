@@ -27,12 +27,6 @@ const homepageItems = [
     { name: 'دوراتي', href: '/courses', icon: 'graduation-cap' },
 ];
 
-const settingsItems = [
-    { name: 'الملف الشخصي', value: 'profile', href: '/profile' },
-    { name: 'الفواتير', value: 'billing', href: '/billing' },
-    { name: 'الإعدادات', value: 'settings', href: '/settings' },
-];
-
 // Computed property to check if we have any results
 const hasResults = computed(() => searchResults.value.courses.length > 0 || searchResults.value.lessons.length > 0);
 
@@ -214,13 +208,6 @@ function handleSearchInput(value: string) {
 
                     <CommandSeparator />
                 </template>
-
-                <!-- Settings always shown -->
-                <CommandGroup heading="الإعدادات">
-                    <CommandItem v-for="item in settingsItems" :key="item.value" :value="item.value" @select="handleItemSelect(item.href)">
-                        {{ item.name }}
-                    </CommandItem>
-                </CommandGroup>
             </CommandList>
         </CommandDialog>
     </div>
