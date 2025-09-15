@@ -6,6 +6,7 @@
     />
 
     <AppLayout :breadcrumbs="breadcrumbs">
+        <ChatBubble :context="props.currentLesson?.content" />
         <div>
             <SidebarProvider>
                 <CourseSidebar :course="props.course" :lessons="props.lessons" :currentLesson="props.currentLesson" />
@@ -102,6 +103,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
+import ChatBubble from '@/components/ChatBubble.vue';
 import CourseSidebar from '@/components/CourseSidebar.vue';
 import { SidebarProvider } from '@/components/ui/sidebar';
 

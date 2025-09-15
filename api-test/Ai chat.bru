@@ -1,0 +1,15 @@
+meta {
+  name: Ai chat
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/chat
+  body: json
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
