@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index(): Response
     {
-        $courses = Course::all();
+        $courses = Course::all()->load('userCourses');
         return inertia('Courses/Index', [
             'courses' => CourseResource::collection($courses)->resolve(),
         ]);
@@ -27,18 +27,22 @@ class CourseController extends Controller
     /**
      * Display the specified resource (course overview).
      */
-    public function show(Course $course, Request $request): Response
+    // app/Http/Controllers/CourseController.php
+
+    public function show(Course $course, Request $request): Response|\Illuminate\Http\RedirectResponse
     {
         // Auto-enroll user in course if authenticated
         if ($request->user()) {
-            UserCourse::firstOrCreate([
-                'user_id' => $request->user()->id,
-                'course_id' => $course->id,
-            ], [
-                'is_completed' => false,
-            ]);
+            UserCourse::firstOrCreate(
+                [
+                    'user_id' => $request->user()->id,
+                    'course_id' => $course->id,
+                ],
+                ['is_completed' => false]
+            );
         }
 
+        // Always have lessons ordered
         $course->load(['lessons' => function ($query) {
             $query->orderBy('index');
         }]);
@@ -53,10 +57,57 @@ class CourseController extends Controller
             }]);
         }
 
+        // If there are lessons, redirect to the "current" lesson
+        $currentLesson = $this->determineCurrentLesson($course, $request->user()?->id);
+
+        if ($currentLesson) {
+            return redirect()->route('courses.lessons.show', [
+                'course' => $course->id,
+                'lesson' => $currentLesson->id,
+            ]);
+        }
+
+        // No lessons: render the overview
         return inertia('Courses/Show', [
             'course' => (new CourseResource($course))->resolve(),
             'lessons' => LessonResource::collection($course->lessons)->resolve(),
         ]);
+    }
+
+    /**
+     * Determine the current lesson for a user:
+     * - First incomplete lesson (by index)
+     * - If none incomplete, the first lesson
+     * - If no user, just the first lesson
+     */
+    private function determineCurrentLesson(Course $course, ?int $userId): ?Lesson
+    {
+        if ($course->lessons->isEmpty()) {
+            return null;
+        }
+
+        // If user known, pick first incomplete for them
+        if ($userId) {
+            // Build a set of completed lesson ids for this user in one query
+            $completedIds = UserLesson::where('user_id', $userId)
+                ->whereIn('lesson_id', $course->lessons->pluck('id'))
+                ->where('is_completed', true)
+                ->pluck('lesson_id')
+                ->toArray();
+
+            $firstIncomplete = $course->lessons
+                ->sortBy('index')
+                ->first(function (Lesson $l) use ($completedIds) {
+                    return !in_array($l->id, $completedIds, true);
+                });
+
+            if ($firstIncomplete) {
+                return $firstIncomplete;
+            }
+        }
+
+        // Fallback: first lesson by index
+        return $course->lessons->sortBy('index')->first();
     }
 
     /**

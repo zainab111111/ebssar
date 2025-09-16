@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CommandPalette from '@/components/CommandPalette.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -12,24 +13,24 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Textarea } from '@/components/ui/textarea';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { Accessibility, BookOpen, Ear, Eye, Hand, Heart, HomeIcon, Mail, Menu, MessageSquare, Phone, Star, Users, Volume2, X } from 'lucide-vue-next';
-import { ref } from 'vue';
-import { usePage } from '@inertiajs/vue3';
-import { computed,} from 'vue';
+import { computed, ref } from 'vue';
+import { toast } from 'vue-sonner';
 
 // Mobile menu state
-const isMobileMenuOpen = ref(false)
+const isMobileMenuOpen = ref(false);
 
 // Computed properties
-const isAuthenticated = computed(() => usePage().props.auth?.user)
+const isAuthenticated = computed(() => usePage().props.auth?.user);
 
 // Methods
 const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false
-}
+    isMobileMenuOpen.value = false;
+};
 
 const pages = [
+    { name: 'الدورات', href: '/courses-list' },
     { name: 'الميزات', href: '#features' },
     { name: 'القصص', href: '#stories' },
     { name: 'إمكانية الوصول', href: '#accessibility' },
@@ -111,20 +112,25 @@ const stories = [
         ariaLabel: 'قصة نجاح من إيما، معلمة وأم لطفل يعاني من عسر القراءة',
     },
 ];
-
 // Contact form handling
-const contactForm = ref({
+const contactForm = useForm({
     name: '',
     email: '',
     subject: '',
     message: '',
 });
-
 const submitContact = () => {
-    // Handle form submission
-    console.log('Contact form submitted:', contactForm.value);
-    // Reset form
-    contactForm.value = { name: '', email: '', subject: '', message: '' };
+    contactForm.post(route('contact.store'), {
+        preserveScroll: true, // Add this to prevent page refresh
+        onSuccess: () => {
+            contactForm.reset(); // Use form reset method instead of manual reset
+            toast.success('✔️ تم إرسال الرسالة بنجاح!');
+        },
+        onError: (errors) => {
+            toast.error('❌ حدث خطأ أثناء إرسال الرسالة');
+            console.error('Validation errors:', errors);
+        },
+    });
 };
 </script>
 
@@ -141,150 +147,108 @@ const submitContact = () => {
         class="flex min-h-screen flex-col items-center bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]"
         style="font-family: 'Cairo', 'Noto Sans Arabic', sans-serif"
     >
-  <header
-    class="mb-6 w-full fixed bg-background z-50 px-16 text-sm not-has-[nav]:hidden "
-    role="banner"
-  >
-    <nav class="flex items-center justify-between py-4" role="navigation">
-      <!-- Home Link -->
-      <Link
-        href="/"
-        class="flex items-center focus:outline-none focus:ring-2 focus:ring-primary focus:rounded"
-        aria-label="الصفحة الرئيسية"
-      >
-        <HomeIcon class="h-8 w-8 text-primary" aria-hidden="true" />
-      </Link>
+        <header class="fixed z-50 mb-6 w-full bg-background px-16 text-sm not-has-[nav]:hidden" role="banner">
+            <nav class="flex items-center justify-between py-4" role="navigation">
+                <!-- Home Link -->
+                <div class="flex items-center gap-4">
+                    <Link
+                        href="/"
+                        class="flex items-center focus:rounded focus:ring-2 focus:ring-primary focus:outline-none"
+                        aria-label="الصفحة الرئيسية"
+                    >
+                        <HomeIcon class="h-8 w-8 text-primary" aria-hidden="true" />
+                    </Link>
+                    <CommandPalette />
+                </div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex md:items-center md:gap-4">
+                    <NavigationMenu>
+                        <NavigationMenuList>
+                            <NavigationMenuItem v-for="page in pages" :key="page.name">
+                                <NavigationMenuLink
+                                    :href="page.href"
+                                    :class="navigationMenuTriggerStyle()"
+                                    class="text-lg font-medium transition-colors hover:text-primary focus:text-primary"
+                                >
+                                    {{ page.name }}
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex md:items-center md:gap-4">
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem v-for="page in pages" :key="page.name">
-              <NavigationMenuLink
-                :href="page.href"
-                :class="navigationMenuTriggerStyle()"
-                class="text-lg font-medium transition-colors hover:text-primary focus:text-primary"
-              >
-                {{ page.name }}
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+                    <!-- Desktop Auth Section -->
+                    <div class="flex items-center gap-2">
+                        <template v-if="!isAuthenticated">
+                            <Button as-child variant="ghost" class="text-lg font-medium">
+                                <Link :href="route('login')">تسجيل الدخول</Link>
+                            </Button>
+                            <Button as-child class="text-lg font-medium">
+                                <Link :href="route('register')">التسجيل</Link>
+                            </Button>
+                        </template>
+                        <Button v-else as-child class="text-lg font-medium">
+                            <Link :href="route('courses.index')">دوراتي</Link>
+                        </Button>
+                    </div>
+                </div>
 
-        <!-- Desktop Auth Section -->
-        <div class="flex items-center gap-2">
-          <template v-if="!isAuthenticated">
-            <Button
-              as-child
-              variant="ghost"
-              class="text-lg font-medium"
-            >
-              <Link :href="route('login')">تسجيل الدخول</Link>
-            </Button>
-            <Button
-              as-child
-              class="text-lg font-medium"
-            >
-              <Link :href="route('register')">التسجيل</Link>
-            </Button>
-          </template>
-          <Button
-            v-else
-            as-child
-            class="text-lg font-medium"
-          >
-            <Link :href="route('courses.index')">دوراتي</Link>
-          </Button>
-        </div>
-      </div>
+                <!-- Mobile Menu -->
+                <div class="flex md:hidden">
+                    <DropdownMenu v-model:open="isMobileMenuOpen">
+                        <DropdownMenuTrigger as-child>
+                            <Button
+                                variant="default"
+                                size="icon"
+                                :aria-label="isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'"
+                                :aria-expanded="isMobileMenuOpen"
+                            >
+                                <Transition name="menu-icon" mode="out-in">
+                                    <Menu v-if="!isMobileMenuOpen" key="menu" class="h-5 w-5" aria-hidden="true" />
+                                    <X v-else key="close" class="h-5 w-5" aria-hidden="true" />
+                                </Transition>
+                            </Button>
+                        </DropdownMenuTrigger>
 
-      <!-- Mobile Menu -->
-      <div class="flex md:hidden">
-        <DropdownMenu v-model:open="isMobileMenuOpen">
-          <DropdownMenuTrigger as-child>
-            <Button
-              variant="default"
-              size="icon"
-              :aria-label="isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'"
-              :aria-expanded="isMobileMenuOpen"
-            >
-              <Transition name="menu-icon" mode="out-in">
-                <Menu
-                  v-if="!isMobileMenuOpen"
-                  key="menu"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                />
-                <X
-                  v-else
-                  key="close"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                />
-              </Transition>
-            </Button>
-          </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" class="w-56" @close-auto-focus.prevent>
+                            <!-- Navigation Links -->
+                            <template v-for="page in pages" :key="page.name">
+                                <DropdownMenuItem as-child>
+                                    <Link :href="page.href" class="w-full justify-center text-lg font-medium" @click="closeMobileMenu">
+                                        {{ page.name }}
+                                    </Link>
+                                </DropdownMenuItem>
+                            </template>
 
-          <DropdownMenuContent
-            align="end"
-            class="w-56"
-            @close-auto-focus.prevent
-          >
-            <!-- Navigation Links -->
-            <template v-for="page in pages" :key="page.name">
-              <DropdownMenuItem as-child>
-                <Link
-                  :href="page.href"
-                  class="w-full justify-center text-lg font-medium"
-                  @click="closeMobileMenu"
-                >
-                  {{ page.name }}
-                </Link>
-              </DropdownMenuItem>
-            </template>
+                            <!-- Separator -->
+                            <DropdownMenuSeparator v-if="pages.length > 0" />
 
-            <!-- Separator -->
-            <DropdownMenuSeparator v-if="pages.length > 0" />
-
-            <!-- Auth Links -->
-            <template v-if="!isAuthenticated">
-              <DropdownMenuItem as-child>
-                <Link
-                  :href="route('login')"
-                  class="w-full justify-center text-lg font-medium"
-                  @click="closeMobileMenu"
-                >
-                  تسجيل الدخول
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem as-child>
-                <Link
-                  :href="route('register')"
-                  class="w-full justify-center text-lg font-medium"
-                  @click="closeMobileMenu"
-                >
-                  التسجيل
-                </Link>
-              </DropdownMenuItem>
-            </template>
-            <DropdownMenuItem v-else as-child>
-              <Link
-                :href="route('courses.index')"
-                class="w-full justify-center text-lg font-medium"
-                @click="closeMobileMenu"
-              >
-                لوحة التحكم
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    </nav>
-  </header>
+                            <!-- Auth Links -->
+                            <template v-if="!isAuthenticated">
+                                <DropdownMenuItem as-child>
+                                    <Link :href="route('login')" class="w-full justify-center text-lg font-medium" @click="closeMobileMenu">
+                                        تسجيل الدخول
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem as-child>
+                                    <Link :href="route('register')" class="w-full justify-center text-lg font-medium" @click="closeMobileMenu">
+                                        التسجيل
+                                    </Link>
+                                </DropdownMenuItem>
+                            </template>
+                            <DropdownMenuItem v-else as-child>
+                                <Link :href="route('courses.index')" class="w-full justify-center text-lg font-medium" @click="closeMobileMenu">
+                                    لوحة التحكم
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+            </nav>
+        </header>
 
         <!-- Hero Section -->
         <section
-            class="relative pt-28 flex min-h-screen w-full justify-center bg-background px-4 py-16"
+            class="relative flex min-h-screen w-full justify-center bg-background px-4 py-16 pt-28"
             role="banner"
             aria-label="قسم البطل لمنصة التعلم الإلكتروني المتاحة"
             dir="rtl"
@@ -1044,14 +1008,15 @@ html {
         scroll-behavior: auto;
     }
 }
+
 .menu-icon-enter-active,
 .menu-icon-leave-active {
-  transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .menu-icon-enter-from,
 .menu-icon-leave-to {
-  opacity: 0;
-  transform: rotate(90deg);
+    opacity: 0;
+    transform: rotate(90deg);
 }
 </style>
