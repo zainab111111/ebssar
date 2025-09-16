@@ -55,7 +55,8 @@ const handleLessonClick = (url: string, event: Event) => {
     <Sidebar variant="sidebar">
         <SidebarHeader>
             <div class="flex flex-col items-center gap-2 p-4">
-                <img :src="props.course?.image_url" alt="Course image" loading="lazy" class="aspect-video w-full rounded object-cover" />
+                <img :src="props.course?.image_url" alt="Course image" loading="lazy"
+                    class="aspect-video w-full rounded object-cover" />
                 <h2 class="text-center text-sm font-semibold">
                     {{ props.course?.name }}
                 </h2>
@@ -63,13 +64,13 @@ const handleLessonClick = (url: string, event: Event) => {
                 <div v-if="props.course" class="w-full">
                     <div class="mb-1 flex justify-between text-xs text-gray-500">
                         <span>Progress</span>
-                        <span>{{ items?.filter((item) => item.isCompleted).length || 0 }} / {{ items?.length || 0 }}</span>
+                        <span>{{items?.filter((item) => item.isCompleted).length || 0}} / {{ items?.length || 0
+                            }}</span>
                     </div>
                     <div class="h-2 w-full rounded-full bg-gray-200">
-                        <div
-                            class="h-2 rounded-full bg-green-600 transition-all duration-300"
-                            :style="{ width: `${items?.length ? (items.filter((item) => item.isCompleted).length / items.length) * 100 : 0}%` }"
-                        ></div>
+                        <div class="h-2 rounded-full bg-green-600 transition-all duration-300"
+                            :style="{ width: `${items?.length ? (items.filter((item) => item.isCompleted).length / items.length) * 100 : 0}%` }">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,24 +80,19 @@ const handleLessonClick = (url: string, event: Event) => {
                 <SidebarGroupContent>
                     <SidebarMenu>
                         <SidebarMenuItem v-for="item in items" :key="item.title">
-                            <SidebarMenuButton
-                                :class="{
-                                    'bg-accent text-accent-foreground': item.isActive,
-                                    'text-green-600': item.isCompleted && !item.isActive,
-                                    'opacity-75': item.isCompleted && !item.isActive,
-                                }"
-                                @click="(event: Event) => handleLessonClick(item.url, event)"
-                            >
-                                <component
-                                    :is="item.icon"
-                                    :class="{
-                                        'text-green-600': item.isCompleted,
-                                        'text-blue-600': item.isActive && !item.isCompleted,
-                                    }"
-                                />
+                            <SidebarMenuButton :class="{
+                                'bg-accent text-accent-foreground': item.isActive,
+                                'text-green-600': item.isCompleted && !item.isActive,
+                                'opacity-75': item.isCompleted && !item.isActive,
+                            }" @click="(event: Event) => handleLessonClick(item.url, event)">
+                                <component :is="item.icon" :class="{
+                                    'text-green-600': item.isCompleted,
+                                    'text-blue-600': item.isActive && !item.isCompleted,
+                                }" />
                                 <span>{{ item.title }}</span>
                                 <!-- Auto-completed indicator -->
-                                <span v-if="item.isCompleted && !item.isActive" class="ml-auto text-xs text-green-600"> ✓ </span>
+                                <span v-if="item.isCompleted && !item.isActive" class="ml-auto text-xs text-green-600">
+                                    ✓ </span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>

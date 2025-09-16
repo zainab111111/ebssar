@@ -1,9 +1,7 @@
 <template>
-    <Head
-        :title="
-            props.currentLesson ? `${props.currentLesson.title} - ${props.course?.name}` : props.course ? `${props.course.name} - Courses` : 'Courses'
-        "
-    />
+
+    <Head :title="props.currentLesson ? `${props.currentLesson.title} - ${props.course?.name}` : props.course ? `${props.course.name} - Courses` : 'Courses'
+        " />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <ChatBubble :context="props.currentLesson?.content" />
@@ -29,40 +27,27 @@
                         </div> -->
 
                         <!-- Audio player if audio exists -->
-                        <div v-if="props.currentLesson.audio_url || props.currentLesson.audio" class="rounded-lg bg-gray-50 p-4">
+                        <div v-if="props.currentLesson.audio_url || props.currentLesson.audio"
+                            class="rounded-lg bg-gray-50 p-4">
                             <div class="space-y-2">
                                 <h3 class="text-sm font-medium text-gray-700">Lesson Audio</h3>
 
-                                <audio
-                                    controls
-                                    preload="metadata"
-                                    class="w-full"
-                                    @error="handleAudioError"
-                                    @loadstart="handleAudioLoadStart"
-                                    @canplay="handleAudioCanPlay"
-                                >
+                                <audio controls preload="metadata" class="w-full" @error="handleAudioError"
+                                    @loadstart="handleAudioLoadStart" @canplay="handleAudioCanPlay">
                                     <!-- Try audio_url first -->
-                                    <source
-                                        v-if="props.currentLesson.audio_url"
-                                        :src="props.currentLesson.audio_url"
-                                        :type="getAudioType(props.currentLesson.audio_url)"
-                                    />
+                                    <source v-if="props.currentLesson.audio_url" :src="props.currentLesson.audio_url"
+                                        :type="getAudioType(props.currentLesson.audio_url)" />
                                     <!-- Fallback to audio field -->
-                                    <source
-                                        v-else-if="props.currentLesson.audio"
+                                    <source v-else-if="props.currentLesson.audio"
                                         :src="getAudioUrl(props.currentLesson.audio)"
-                                        :type="getAudioType(props.currentLesson.audio)"
-                                    />
+                                        :type="getAudioType(props.currentLesson.audio)" />
                                     Your browser does not support the audio element.
                                 </audio>
 
                                 <!-- Direct download link as fallback -->
                                 <div class="mt-2">
-                                    <a
-                                        :href="props.currentLesson.audio_url || getAudioUrl(props.currentLesson.audio)"
-                                        download
-                                        class="text-sm text-blue-600 underline hover:text-blue-800"
-                                    >
+                                    <a :href="props.currentLesson.audio_url || getAudioUrl(props.currentLesson.audio)"
+                                        download class="text-sm text-blue-600 underline hover:text-blue-800">
                                         Download Audio File
                                     </a>
                                 </div>
@@ -70,7 +55,8 @@
                         </div>
 
                         <!-- Show message if no audio -->
-                        <div v-else class="rounded-lg bg-gray-100 p-4 text-center text-gray-500">No audio available for this lesson.</div>
+                        <div v-else class="rounded-lg bg-gray-100 p-4 text-center text-gray-500">No audio available for
+                            this lesson.</div>
 
                         <!-- Lesson content -->
                         <div class="prose max-w-none" v-html="props.currentLesson.content"></div>
@@ -79,7 +65,8 @@
                     <!-- Default content when no lesson is selected -->
                     <div v-else-if="props.course" class="py-12 text-center">
                         <div class="space-y-4">
-                            <img :src="props.course.image_url" :alt="props.course.name" class="mx-auto h-48 w-auto rounded-lg shadow-lg" />
+                            <img :src="props.course.image_url" :alt="props.course.name"
+                                class="mx-auto h-48 w-auto rounded-lg shadow-lg" />
                             <h1 class="text-3xl font-bold text-gray-900">
                                 {{ props.course.name }}
                             </h1>
@@ -133,19 +120,19 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = props.course
     ? [
-          {
-              title: 'Course',
-              href: `/courses/${props.course.id}`,
-          },
-          ...(props.currentLesson
-              ? [
-                    {
-                        title: props.currentLesson.title,
-                        href: `/courses/${props.course.id}/lessons/${props.currentLesson.id}`,
-                    },
-                ]
-              : []),
-      ]
+        {
+            title: 'Course',
+            href: `/courses/${props.course.id}`,
+        },
+        ...(props.currentLesson
+            ? [
+                {
+                    title: props.currentLesson.title,
+                    href: `/courses/${props.course.id}/lessons/${props.currentLesson.id}`,
+                },
+            ]
+            : []),
+    ]
     : [];
 
 // Helper function to generate audio URL manually
