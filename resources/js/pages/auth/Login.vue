@@ -68,7 +68,7 @@ defineProps<{
 
                 <Button type="submit" class="w-full mt-4" :tabindex="4" :disabled="processing">
                     <LoaderCircle v-if="processing" class="w-4 h-4 animate-spin" />
-                    Log in
+                    تسجيل الدخول
                 </Button>
             </div>
 

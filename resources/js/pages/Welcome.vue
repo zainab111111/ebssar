@@ -693,7 +693,8 @@ const submitContact = () => {
                                         <div>
                                             <h4 class="mb-1 font-semibold">الدردشة المباشرة</h4>
                                             <p class="text-muted-foreground">متاح مع دعم قارئ الشاشة</p>
-                                            <p class="mt-1 text-sm text-muted-foreground">الاثنين - الجمعة، 9 صباحاً - 6 مساءً بتوقيت شرق أمريكا</p>
+                                            <p class="mt-1 text-sm text-muted-foreground">الاثنين - الجمعة، 9 صباحاً - 6 مساءً بتوقيت   اليمن
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
