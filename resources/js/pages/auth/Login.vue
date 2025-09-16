@@ -7,55 +7,60 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Form, Head } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 defineProps<{
     status?: string;
     canResetPassword: boolean;
 }>();
+
+const showPassword = ref(false);
+const togglePassword = () => {
+    showPassword.value = !showPassword.value;
+};
 </script>
 
 <template>
     <AuthBase title="قم بتسجيل الدخول الى حسابك" description="  ادخل إيميلك لتسحيل الدخول">
+
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-center text-green-600">
+        <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
         </div>
 
-        <Form dir="rtl" method="post" :action="route('login')" :reset-on-success="['password']" v-slot="{ errors, processing }" class="flex flex-col gap-6">
+        <Form dir="rtl" method="post" :action="route('login')" :reset-on-success="['password']"
+            v-slot="{ errors, processing }" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
                     <Label for="email">عنوان البريد الالكتروني </Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        name="email"
-                        required
-                        autofocus
-                        :tabindex="1"
-                        autocomplete="email"
-                        placeholder="email@example.com"
-                    />
+                    <Input id="email" type="email" name="email" required autofocus :tabindex="1" autocomplete="email"
+                        placeholder="email@example.com" />
                     <InputError :message="errors.email" />
                 </div>
 
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
                         <Label for="password">كلمة المرور</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
+                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm"
+                            :tabindex="5">
                             هل نسيت كلمة المرور ?
                         </TextLink>
                     </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        name="password"
-                        required
-                        :tabindex="2"
-                        autocomplete="current-password"
-                        placeholder="Password"
-                    />
+
+                    <!-- Password with eye toggle -->
+                    <div class="relative">
+                        <Input id="password" :type="showPassword ? 'text' : 'password'" name="password" required
+                            :tabindex="2" autocomplete="current-password" placeholder="Password" class="pr-10" />
+                        <button type="button" :aria-label="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'"
+                            class="absolute inset-y-0 left-2 flex items-center text-muted-foreground hover:text-foreground"
+                            @click="togglePassword" tabindex="-1">
+                            <Eye v-if="!showPassword" class="h-4 w-4" />
+                            <EyeOff v-else class="h-4 w-4" />
+                        </button>
+                    </div>
+
                     <InputError :message="errors.password" />
                 </div>
 
@@ -72,7 +77,7 @@ defineProps<{
                 </Button>
             </div>
 
-            <div class="text-sm text-center text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground">
                 لا تملك اي حساب?
                 <TextLink :href="route('register')" :tabindex="5"> أشتراك</TextLink>
             </div>
