@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Resources\CourseResource;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +27,15 @@ Route::get('/courses/{course}/lessons/{lesson}', [CourseController::class, 'show
 Route::post('/courses/{course}/lessons/{lesson}/complete', [CourseController::class, 'completeLesson'])
     ->middleware(['auth', 'verified'])
     ->name('courses.lessons.complete');
+
+Route::get('/courses-list', function () {
+
+    $courses = Course::all()->load('userCourses');
+    return Inertia::render('CoursesListPage', [
+        'courses' => CourseResource::collection($courses)->resolve(),
+    ]);
+})
+    ->name('courses-list');
 
 Route::get('/search', [SearchController::class, 'search']);
 require __DIR__.'/settings.php';
