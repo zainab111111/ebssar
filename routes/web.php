@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactFormController;
 use App\Http\Resources\CourseResource;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
@@ -34,8 +35,9 @@ Route::get('/courses-list', function () {
     return Inertia::render('CoursesListPage', [
         'courses' => CourseResource::collection($courses)->resolve(),
     ]);
-})
-    ->name('courses-list');
+})->name('courses-list');
+
+Route::post('/contact', [ContactFormController::class, 'store'])->name('contact.store');
 
 Route::get('/search', [SearchController::class, 'search']);
 require __DIR__.'/settings.php';

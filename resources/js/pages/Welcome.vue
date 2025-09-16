@@ -13,9 +13,10 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Textarea } from '@/components/ui/textarea';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { Accessibility, BookOpen, Ear, Eye, Hand, Heart, HomeIcon, Mail, Menu, MessageSquare, Phone, Star, Users, Volume2, X } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
+import { toast } from 'vue-sonner';
 
 // Mobile menu state
 const isMobileMenuOpen = ref(false);
@@ -111,20 +112,25 @@ const stories = [
         ariaLabel: 'قصة نجاح من إيما، معلمة وأم لطفل يعاني من عسر القراءة',
     },
 ];
-
 // Contact form handling
-const contactForm = ref({
+const contactForm = useForm({
     name: '',
     email: '',
     subject: '',
     message: '',
 });
-
 const submitContact = () => {
-    // Handle form submission
-    console.log('Contact form submitted:', contactForm.value);
-    // Reset form
-    contactForm.value = { name: '', email: '', subject: '', message: '' };
+    contactForm.post(route('contact.store'), {
+        preserveScroll: true, // Add this to prevent page refresh
+        onSuccess: () => {
+            contactForm.reset(); // Use form reset method instead of manual reset
+            toast.success('✔️ تم إرسال الرسالة بنجاح!');
+        },
+        onError: (errors) => {
+            toast.error('❌ حدث خطأ أثناء إرسال الرسالة');
+            console.error('Validation errors:', errors);
+        },
+    });
 };
 </script>
 
